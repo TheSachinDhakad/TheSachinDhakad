@@ -5,7 +5,7 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=thesachindhakad&label=Profile%20views&color=0e75b6&style=flat" alt="thesachindhakad" /> </p>
 
-- 🌱 I’m currently learning **Mern Stack**
+- 🌱 I’m currently learning **Mean Stack**
 
 - 💬 Ask me about **Backend Development**
 
