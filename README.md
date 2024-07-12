@@ -11,7 +11,7 @@
 
 - 📫 How to reach me **sachindhakad7265@gmail.com**
 
-- 📄 Know about my experiences [https://drive.google.com/file/d/1YvuACP8wTjQTGLCWvVWp9XwO-r1bBsYr/view?usp=drivesdk](https://drive.google.com/file/d/1YvuACP8wTjQTGLCWvVWp9XwO-r1bBsYr/view?usp=drivesdk)
+- 📄 Know about my experiences [https://drive.google.com/file/d/11n2JFTJOI-9LLYZdlB8Ohzp6hTbq-_xB/view?usp=sharing](https://drive.google.com/file/d/11n2JFTJOI-9LLYZdlB8Ohzp6hTbq-_xB/view?usp=sharing)
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
