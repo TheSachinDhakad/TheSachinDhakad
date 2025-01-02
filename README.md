@@ -86,6 +86,26 @@
 
 ---
 
+### 🔥 Experience
+
+**Avyaan Management** [June 2023 – Nov 2023]  
+*Back-End Developer Intern*  
+Bhopal, Madhya Pradesh  
+- Built a Transcription Tool using Python, enabling accurate transcription of audio in multiple languages.
+
+**Zappian Media Private Limited** [Feb 2024 – March 2024]  
+*Back-End Developer Intern*  
+Bhopal, Madhya Pradesh  
+- Contributed to the development of the Campaign Lab Web Application, focusing on back-end functionality.
+
+**Tryidol**  
+*Software Engineer Trainee*  
+Bhopal, Madhya Pradesh  
+- Developed and deployed RESTful APIs, improving front-end integration and enhancing response time.
+- Secured APIs and data access through OAuth2 and JWT, ensuring robust user authentication and authorization.
+
+---
+
 ### 📊 My GitHub Stats
 
 <p align="center">
