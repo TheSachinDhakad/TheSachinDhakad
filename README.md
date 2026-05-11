@@ -1,125 +1,237 @@
-![logo](https://github.com/TheSachinDhakad/TheSachinDhakad/blob/main/card.jpg?raw=true.jpg)
 <h1 align="center">Hi 👋, I'm Sachin Nagar</h1>
-<h3 align="center">A Passionate Software Engineer from India</h3>
-<img align="right" alt="coding" width="400px" src="https://camo.githubusercontent.com/cae12fddd9d6982901d82580bdf321d81fb299141098ca1c2d4891870827bf17/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f313336302f302a37513379765349765f7430696f4a2d5a2e676966">
 
-<p align="left">
-  <img src="https://komarev.com/ghpvc/?username=thesachindhakad&label=Profile%20views&color=0e75b6&style=flat" alt="thesachindhakad" />
-</p>
-
----
-
-### 🔥 About Me
-
-- 🌱 I’m currently learning **Java Full Stack and Data Structures & Algorithms**.
-- 💬 Ask me about **Backend Development**.
-- 📫 You can reach me at **sachindhakad7265@gmail.com**.
-- 📄 Check out my [Resume](https://drive.google.com/file/d/11n2JFTJOI-9LLYZdlB8Ohzp6hTbq-_xB/view?usp=sharing).
-
----
-
-### 📢 Connect with Me:
-
-<p align="left">
-  <a href="https://linkedin.com/in/sachin-nagar-102929231" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="sachin-nagar-102929231" height="40" width="40" />
-  </a>
-  <a href="https://fb.com/sachin dhakad" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="sachin dhakad" height="40" width="40" />
-  </a>
-  <a href="https://instagram.com/thesachindhakad" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="thesachindhakad" height="40" width="40" />
-  </a>
-  <a href="https://www.hackerrank.com/profile/sachindhakad7265" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="@sachindhakad7265" height="40" width="40" />
-  </a>
-  <a href="https://leetcode.com/sachin-nagar-dev/" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="sachin_dhakad_" height="40" width="40" />
-  </a>
-</p>
-
----
-
-### 🛠️ Languages and Tools:
-
-<p align="left">
-  <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="50" height="50"/>
-  </a> 
-  <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="50" height="50"/>
-  </a> 
-  <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="50" height="50"/>
-  </a> 
-  <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="50" height="50"/>
-  </a> 
-  <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> 
-    <img src="https://cdn.worldvectorlogo.com/logos/django.svg" alt="django" width="50" height="50"/>
-  </a> 
-  <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> 
-    <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="50" height="50"/>
-  </a> 
-  <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="50" height="50"/>
-  </a> 
-  <a href="https://www.java.com" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="50" height="50"/>
-  </a> 
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="50" height="50"/>
-  </a> 
-  <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="50" height="50"/>
-  </a> 
-  <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="50" height="50"/>
-  </a> 
-  <a href="https://nodejs.org" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="50" height="50"/>
-  </a> 
-  <a href="https://www.python.org" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="50" height="50"/>
-  </a> 
-</p>
-
----
-
-### 🔥 Experience
-
-**Avyaan Management** [June 2023 – Nov 2023]  
-*Back-End Developer Intern*  
-Bhopal, Madhya Pradesh  
-- Built a Transcription Tool using Python, enabling accurate transcription of audio in multiple languages.
-
-**Zappian Media Private Limited** [Feb 2024 – March 2024]  
-*Back-End Developer Intern*  
-Bhopal, Madhya Pradesh  
-- Contributed to the development of the Campaign Lab Web Application, focusing on back-end functionality.
-
-**Tryidol**  
-*Software Engineer Trainee*  
-Bhopal, Madhya Pradesh  
-- Developed and deployed RESTful APIs, improving front-end integration and enhancing response time.
-- Secured APIs and data access through OAuth2 and JWT, ensuring robust user authentication and authorization.
-
----
-
-### 📊 My GitHub Stats
+<h3 align="center">
+Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusiast
+</h3>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=thesachindhakad&show_icons=true&locale=en" alt="thesachindhakad" width="50%" />
+  <a href="https://github.com/TheSachinDhakad">
+    <img src="https://komarev.com/ghpvc/?username=TheSachinDhakad&label=Profile%20Views&color=0e75b6&style=flat" alt="profile views"/>
+  </a>
 </p>
 
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=thesachindhakad&" alt="thesachindhakad" width="50%" />
-</p>
+<img align="right" alt="coding" width="400" src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif">
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=thesachindhakad&show_icons=true&locale=en&layout=compact" alt="thesachindhakad" width="50%" />
+---
+
+## 💫 About Me
+
+- 💼 Software Engineer at **TCS**
+- 🏦 Currently working for **Vanguard Client**
+- 🌱 Learning **System Design, AWS, Kubernetes & Advanced Microservices**
+- 🔥 Passionate about **Backend Engineering & Scalable Systems**
+- 💬 Ask me about:
+  - Java
+  - Spring Boot
+  - Microservices
+  - REST APIs
+  - AWS
+  - Docker
+  - CI/CD
+- ⚡ Strong understanding of:
+  - Distributed Systems
+  - Saga Design Pattern
+  - JWT/OAuth2 Security
+  - RabbitMQ
+  - Eureka Server
+- 📫 Reach me at:
+  **sde.sachinnagar@gmail.com**
+
+---
+
+# 🌐 Connect With Me
+
+<p align="left">
+<a href="https://linkedin.com/in/sachin-nagar-102929231" target="blank">
+<img align="center" src="https://skillicons.dev/icons?i=linkedin" height="50" width="50"/>
+</a>
+
+<a href="https://instagram.com/thesachindhakad" target="blank">
+<img align="center" src="https://skillicons.dev/icons?i=instagram" height="50" width="50"/>
+</a>
+
+<a href="https://leetcode.com/sachin-nagar-dev/" target="blank">
+<img align="center" src="https://cdn.simpleicons.org/leetcode" height="50" width="50"/>
+</a>
+
+<a href="https://www.hackerrank.com/profile/sachindhakad7265" target="blank">
+<img align="center" src="https://cdn.simpleicons.org/hackerrank" height="50" width="50"/>
+</a>
 </p>
 
 ---
 
-### 🚀 Let's Connect and Build Something Great!
+# 🛠️ Tech Stack
+
+## 🚀 Languages
+<p>
+<img src="https://skillicons.dev/icons?i=java,python,javascript,c,cpp,sql" />
+</p>
+
+## ⚙️ Backend Development
+<p>
+<img src="https://skillicons.dev/icons?i=spring,nodejs,express,django" />
+</p>
+
+## 🗄️ Databases
+<p>
+<img src="https://skillicons.dev/icons?i=mysql,mongodb" />
+</p>
+
+## ☁️ Cloud & DevOps
+<p>
+<img src="https://skillicons.dev/icons?i=aws,docker,jenkins,git,github,maven" />
+</p>
+
+## 🧠 Tools & Technologies
+<p>
+
+- Spring Boot  
+- Hibernate  
+- REST APIs  
+- Microservices  
+- RabbitMQ  
+- Eureka Server  
+- JWT Authentication  
+- OAuth2  
+- CI/CD Pipelines  
+- Splunk  
+- Honeycomb  
+- SAP  
+- OutSystems  
+- DynamoDB  
+- DB2  
+- AWS Lambda  
+- AWS S3  
+- AWS EC2  
+- AWS RDS  
+- Postman  
+- System Design  
+- OOP & SOLID Principles  
+
+</p>
+
+---
+
+# 💼 Experience
+
+## 🏢 Tata Consultancy Services (TCS)
+### Software Engineer | Vanguard Client
+📍 Indore, Madhya Pradesh  
+📅 June 2025 – Present
+
+- Developed scalable microservices using Spring Boot
+- Implemented Saga Design Pattern for distributed transactions
+- Worked with MySQL, DB2 & DynamoDB
+- Built AWS Lambda serverless solutions
+- Automated deployments using Jenkins & Docker
+- Monitored applications using Splunk & Honeycomb
+- Improved deployment efficiency by 30%
+
+---
+
+## 🏢 Stepfinity
+### Software Engineer
+📍 Bhopal, Madhya Pradesh  
+📅 Apr 2025 – May 2025
+
+- Built REST APIs integrated with OutSystems
+- Integrated Shopify APIs
+- Resolved production issues and improved workflows
+
+---
+
+## 🏢 Tryidol
+### Software Engineer Intern
+📍 Bhopal, Madhya Pradesh  
+📅 Oct 2024 – Mar 2025
+
+- Developed secure JWT/OAuth2 APIs
+- Deployed services on AWS EC2
+- Managed databases using AWS RDS
+
+---
+
+# 🚀 Featured Projects
+
+## 🏋️ Fitness Tracking Platform
+### Tech Stack:
+Java • Spring Boot • RabbitMQ • Eureka • MongoDB
+
+- Built microservices architecture
+- Event-driven communication using RabbitMQ
+- Service discovery with Eureka
+- Scalable REST APIs
+
+---
+
+## 🛒 Quick Commerce Platform
+### Tech Stack:
+MERN • AWS • Razorpay
+
+- Multi-vendor e-commerce platform
+- Secure payment integration
+- AWS EC2 & S3 deployment
+- Optimized backend APIs
+
+---
+
+## 📦 Inventory Billing Software
+### Tech Stack:
+MERN • JWT Authentication
+
+- Role-based access control
+- Real-time inventory tracking
+- Barcode scanning system
+
+---
+
+# 🏆 Achievements
+
+- ✅ Solved **500+ DSA Problems** on LeetCode
+- 🏅 Best Performance Award in TCS ILP Training
+- ☁️ Oracle Cloud Certified
+
+---
+
+# 📜 Certifications
+
+- Oracle Cloud Infrastructure AI Foundations Associate
+- Oracle Cloud Infrastructure Foundations Associate
+- Oracle Data Platform Foundations Associate
+- Oracle Fusion AI Agent Studio Foundations Associate
+
+---
+
+# 📊 GitHub Analytics
+
+<p align="center">
+
+<img src="https://github-readme-stats.vercel.app/api?username=TheSachinDhakad&show_icons=true&theme=tokyonight" width="48%" />
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight" width="48%" />
+
+</p>
+
+<p align="center">
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TheSachinDhakad&layout=compact&theme=tokyonight" width="48%" />
+
+</p>
+
+---
+
+# 🎯 Current Focus
+
+✅ Advanced Java  
+✅ System Design  
+✅ AWS Cloud  
+✅ Kubernetes  
+✅ Scalable Microservices  
+✅ Distributed Systems  
+
+---
+
+# 🤝 Let's Build Something Amazing Together!
+
+⭐ From [Sachin Nagar](https://github.com/TheSachinDhakad)
