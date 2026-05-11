@@ -5,16 +5,24 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 </h3>
 
 <p align="center">
-  <a href="https://github.com/TheSachinDhakad">
-    <img src="https://komarev.com/ghpvc/?username=TheSachinDhakad&label=Profile%20Views&color=0e75b6&style=flat" alt="profile views"/>
-  </a>
+  <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=25&duration=3000&color=36BCF7&center=true&vCenter=true&width=700&lines=Java+Backend+Developer;Spring+Boot+Microservices+Engineer;AWS+%7C+Docker+%7C+CI%2FCD;Problem+Solver+%7C+500%2B+DSA+Questions" />
 </p>
 
-<img align="right" alt="coding" width="400" src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif">
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=TheSachinDhakad&label=Profile%20Views&color=0e75b6&style=flat" alt="profile views"/>
+</p>
+
+<p align="center">
+  <img 
+    src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" 
+    alt="coding" 
+    width="450"
+  />
+</p>
 
 ---
 
-## 💫 About Me
+# 💫 About Me
 
 - 💼 Software Engineer at **TCS**
 - 🏦 Currently working for **Vanguard Client**
@@ -28,12 +36,16 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
   - AWS
   - Docker
   - CI/CD
+  - RabbitMQ
+  - OAuth2/JWT
+
 - ⚡ Strong understanding of:
   - Distributed Systems
   - Saga Design Pattern
-  - JWT/OAuth2 Security
-  - RabbitMQ
-  - Eureka Server
+  - Cloud-Native Applications
+  - CI/CD Automation
+  - Scalable Architecture
+
 - 📫 Reach me at:
   **sde.sachinnagar@gmail.com**
 
@@ -41,22 +53,28 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 # 🌐 Connect With Me
 
-<p align="left">
-<a href="https://linkedin.com/in/sachin-nagar-102929231" target="blank">
-<img align="center" src="https://skillicons.dev/icons?i=linkedin" height="50" width="50"/>
+<p align="center">
+
+<a href="https://linkedin.com/in/sachin-nagar-102929231" target="_blank">
+  <img src="https://skillicons.dev/icons?i=linkedin" width="50" height="50"/>
 </a>
 
-<a href="https://instagram.com/thesachindhakad" target="blank">
-<img align="center" src="https://skillicons.dev/icons?i=instagram" height="50" width="50"/>
+<a href="https://instagram.com/thesachindhakad" target="_blank">
+  <img src="https://skillicons.dev/icons?i=instagram" width="50" height="50"/>
 </a>
 
-<a href="https://leetcode.com/sachin-nagar-dev/" target="blank">
-<img align="center" src="https://cdn.simpleicons.org/leetcode" height="50" width="50"/>
+<a href="https://leetcode.com/sachin-nagar-dev/" target="_blank">
+  <img src="https://cdn.simpleicons.org/leetcode" width="50" height="50"/>
 </a>
 
-<a href="https://www.hackerrank.com/profile/sachindhakad7265" target="blank">
-<img align="center" src="https://cdn.simpleicons.org/hackerrank" height="50" width="50"/>
+<a href="https://www.hackerrank.com/profile/sachindhakad7265" target="_blank">
+  <img src="https://cdn.simpleicons.org/hackerrank" width="50" height="50"/>
 </a>
+
+<a href="https://github.com/TheSachinDhakad" target="_blank">
+  <img src="https://skillicons.dev/icons?i=github" width="50" height="50"/>
+</a>
+
 </p>
 
 ---
@@ -64,50 +82,43 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 # 🛠️ Tech Stack
 
 ## 🚀 Languages
-<p>
-<img src="https://skillicons.dev/icons?i=java,python,javascript,c,cpp,sql" />
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=java,python,javascript,c,cpp,sql" />
 </p>
 
 ## ⚙️ Backend Development
-<p>
-<img src="https://skillicons.dev/icons?i=spring,nodejs,express,django" />
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=spring,nodejs,express,django" />
 </p>
 
 ## 🗄️ Databases
-<p>
-<img src="https://skillicons.dev/icons?i=mysql,mongodb" />
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=mysql,mongodb" />
 </p>
 
 ## ☁️ Cloud & DevOps
-<p>
-<img src="https://skillicons.dev/icons?i=aws,docker,jenkins,git,github,maven" />
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=aws,docker,jenkins,git,github,maven" />
 </p>
 
-## 🧠 Tools & Technologies
-<p>
+## 🔥 Tools & Technologies
 
-- Spring Boot  
-- Hibernate  
-- REST APIs  
-- Microservices  
-- RabbitMQ  
-- Eureka Server  
-- JWT Authentication  
-- OAuth2  
-- CI/CD Pipelines  
-- Splunk  
-- Honeycomb  
-- SAP  
-- OutSystems  
-- DynamoDB  
-- DB2  
-- AWS Lambda  
-- AWS S3  
-- AWS EC2  
-- AWS RDS  
-- Postman  
-- System Design  
-- OOP & SOLID Principles  
+<p align="center">
+
+<img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
+<img src="https://img.shields.io/badge/Microservices-FF6F00?style=for-the-badge" />
+<img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white" />
+<img src="https://img.shields.io/badge/Eureka-239120?style=for-the-badge" />
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens" />
+<img src="https://img.shields.io/badge/OAuth2-4285F4?style=for-the-badge" />
+<img src="https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazondynamodb&logoColor=white" />
+<img src="https://img.shields.io/badge/Splunk-000000?style=for-the-badge&logo=splunk" />
+<img src="https://img.shields.io/badge/Honeycomb-FBBF24?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" />
 
 </p>
 
@@ -117,6 +128,7 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 ## 🏢 Tata Consultancy Services (TCS)
 ### Software Engineer | Vanguard Client
+
 📍 Indore, Madhya Pradesh  
 📅 June 2025 – Present
 
@@ -132,6 +144,7 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 ## 🏢 Stepfinity
 ### Software Engineer
+
 📍 Bhopal, Madhya Pradesh  
 📅 Apr 2025 – May 2025
 
@@ -143,6 +156,7 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 ## 🏢 Tryidol
 ### Software Engineer Intern
+
 📍 Bhopal, Madhya Pradesh  
 📅 Oct 2024 – Mar 2025
 
@@ -152,20 +166,35 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 ---
 
+## 🏢 Zappian Media
+
+### Backend Developer Intern
+
+📍 Bhopal, Madhya Pradesh  
+📅 Feb 2024 – Jul 2024
+
+- Worked on scalable messaging systems
+- Integrated SMS APIs
+- Automated deployment pipelines
+
+---
+
 # 🚀 Featured Projects
 
 ## 🏋️ Fitness Tracking Platform
+
 ### Tech Stack:
 Java • Spring Boot • RabbitMQ • Eureka • MongoDB
 
 - Built microservices architecture
 - Event-driven communication using RabbitMQ
 - Service discovery with Eureka
-- Scalable REST APIs
+- Developed scalable REST APIs
 
 ---
 
 ## 🛒 Quick Commerce Platform
+
 ### Tech Stack:
 MERN • AWS • Razorpay
 
@@ -177,6 +206,7 @@ MERN • AWS • Razorpay
 ---
 
 ## 📦 Inventory Billing Software
+
 ### Tech Stack:
 MERN • JWT Authentication
 
@@ -191,6 +221,7 @@ MERN • JWT Authentication
 - ✅ Solved **500+ DSA Problems** on LeetCode
 - 🏅 Best Performance Award in TCS ILP Training
 - ☁️ Oracle Cloud Certified
+- 🚀 Built Production-Level Microservices Applications
 
 ---
 
@@ -206,17 +237,13 @@ MERN • JWT Authentication
 # 📊 GitHub Analytics
 
 <p align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=TheSachinDhakad&show_icons=true&theme=tokyonight" width="48%" />
-
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight" width="48%" />
-
+  <img src="https://github-readme-stats.vercel.app/api?username=TheSachinDhakad&show_icons=true&theme=tokyonight" width="48%" />
+  
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight" width="48%" />
 </p>
 
 <p align="center">
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TheSachinDhakad&layout=compact&theme=tokyonight" width="48%" />
-
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TheSachinDhakad&layout=compact&theme=tokyonight" width="40%" />
 </p>
 
 ---
@@ -229,9 +256,16 @@ MERN • JWT Authentication
 ✅ Kubernetes  
 ✅ Scalable Microservices  
 ✅ Distributed Systems  
+✅ CI/CD Automation  
 
 ---
 
 # 🤝 Let's Build Something Amazing Together!
 
-⭐ From [Sachin Nagar](https://github.com/TheSachinDhakad)
+<p align="center">
+  <a href="mailto:sde.sachinnagar@gmail.com">
+    <img src="https://img.shields.io/badge/Email-Me-red?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
+</p>
+
+<h3 align="center">⭐ From Sachin Nagar ⭐</h3>
