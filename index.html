@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sachin Nagar — Backend Software Engineer</title>
+<meta name="description" content="Resume of Sachin Nagar, Backend Software Engineer specializing in Java, Spring Boot, and AWS cloud-native microservices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D1117;
+    --panel:#141A21;
+    --panel-border:#232B34;
+    --text:#E6EDF3;
+    --text-dim:#8A96A3;
+    --text-faint:#5B6572;
+    --signal:#5EEAD4;
+    --signal-dim:#2E7D6E;
+    --amber:#F0B429;
+    --rule:#1E262F;
+    --radius:6px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(94,234,212,0.045) 1px, transparent 0);
+    background-size: 28px 28px;
+    color:var(--text);
+    font-family:"Inter", -apple-system, sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--signal); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--signal); outline-offset:3px;}
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:64px 24px 96px;
+  }
+
+  /* ---------- HEADER / STATUS BAR ---------- */
+  header.hero{
+    margin-bottom:56px;
+  }
+
+  .status-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:"JetBrains Mono", monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--signal);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+
+  .dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 0 0 rgba(94,234,212,0.6);
+    animation:pulse 2.4s infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .dot{animation:none;} }
+
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(94,234,212,0.45); }
+    70%{ box-shadow:0 0 0 8px rgba(94,234,212,0); }
+    100%{ box-shadow:0 0 0 0 rgba(94,234,212,0); }
+  }
+
+  h1{
+    font-family:"JetBrains Mono", monospace;
+    font-size:clamp(28px, 5vw, 40px);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0 0 8px;
+    color:#fff;
+  }
+
+  .role-line{
+    color:var(--text-dim);
+    font-size:16px;
+    margin:0 0 24px;
+  }
+
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    font-family:"JetBrains Mono", monospace;
+    font-size:12.5px;
+    color:var(--text-dim);
+  }
+  .contact-row span::before{
+    content:"·";
+    margin-right:16px;
+    color:var(--text-faint);
+  }
+  .contact-row span:first-child::before{ content:""; margin-right:0; }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{
+    margin-bottom:44px;
+  }
+
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--signal);
+    background:rgba(94,234,212,0.08);
+    border:1px solid rgba(94,234,212,0.25);
+    border-radius:4px;
+    padding:3px 8px;
+    margin-bottom:16px;
+  }
+
+  .tag.amber{
+    color:var(--amber);
+    background:rgba(240,180,41,0.08);
+    border-color:rgba(240,180,41,0.28);
+  }
+
+  h2.section-title{
+    display:none; /* replaced visually by .tag, kept for semantics via sr-only pattern below */
+  }
+
+  p.summary{
+    color:var(--text);
+    font-size:15px;
+    max-width:64ch;
+  }
+
+  /* ---------- LOG-ROW LAYOUT (experience/projects) ---------- */
+  .log{
+    border-top:1px solid var(--rule);
+  }
+  .row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:20px;
+    padding:20px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  @media (max-width:560px){
+    .row{ grid-template-columns:1fr; gap:6px; }
+  }
+
+  .ts{
+    font-family:"JetBrains Mono", monospace;
+    font-size:12px;
+    color:var(--text-faint);
+    padding-top:2px;
+    white-space:nowrap;
+  }
+
+  .row h3{
+    margin:0 0 2px;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .row .meta{
+    font-size:12.5px;
+    color:var(--signal-dim);
+    font-family:"JetBrains Mono", monospace;
+    margin-bottom:10px;
+  }
+
+  .row ul{
+    margin:0;
+    padding-left:18px;
+    color:var(--text-dim);
+    font-size:14px;
+  }
+  .row ul li{ margin-bottom:6px; }
+  .row ul li:last-child{ margin-bottom:0; }
+  .row ul li::marker{ color:var(--text-faint); }
+
+  .row a.link{
+    font-family:"JetBrains Mono", monospace;
+    font-size:12px;
+  }
+
+  /* ---------- SKILLS GRID ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:10px 20px;
+    font-size:13.5px;
+  }
+  @media (max-width:560px){
+    .skills-grid{ grid-template-columns:1fr; }
+  }
+  .skills-grid dt{
+    font-family:"JetBrains Mono", monospace;
+    color:var(--text-faint);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding-top:2px;
+  }
+  .skills-grid dd{
+    margin:0 0 4px;
+    color:var(--text-dim);
+  }
+  @media (min-width:561px){
+    .skills-grid dd{ margin-bottom:0; }
+  }
+
+  /* ---------- TWO-COLUMN FOOTER SECTIONS ---------- */
+  .grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  @media (max-width:640px){
+    .grid-2{ grid-template-columns:1fr; gap:32px; }
+  }
+
+  .simple-item{ margin-bottom:14px; }
+  .simple-item:last-child{ margin-bottom:0; }
+  .simple-item h4{
+    margin:0 0 2px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .simple-item p{
+    margin:0;
+    font-size:13px;
+    color:var(--text-dim);
+  }
+
+  footer{
+    margin-top:64px;
+    padding-top:24px;
+    border-top:1px solid var(--rule);
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  ::selection{ background:rgba(94,234,212,0.25); color:#fff; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="status-row"><span class="dot" aria-hidden="true"></span> open to work</div>
+    <h1>Sachin Nagar</h1>
+    <p class="role-line">Backend Software Engineer — Java · Spring Boot · AWS Cloud-Native Microservices</p>
+    <div class="contact-row">
+      <span>Indore, Madhya Pradesh, India</span>
+      <span>+91 9232995605</span>
+      <span><a href="mailto:sachinnagar.swe@gmail.com">sachinnagar.swe@gmail.com</a></span>
+      <span><a href="#" rel="noopener">LinkedIn</a></span>
+      <span><a href="#" rel="noopener">GitHub</a></span>
+      <span><a href="#" rel="noopener">LeetCode</a></span>
+    </div>
+  </header>
+
+  <section aria-labelledby="summary-title">
+    <span class="tag" id="summary-title">Summary</span>
+    <p class="summary">
+      Backend Software Engineer with 2+ years of combined experience, including enterprise work at TCS on the
+      Vanguard financial platform, specializing in Java, Spring Boot, and AWS cloud-native microservices.
+      Hands-on with Docker, Jenkins CI/CD, AWS Lambda, DynamoDB, and REST/JSON APIs. Experienced in production
+      log analysis using Splunk and Honeycomb, application support, and distributed-system debugging. Strong
+      OOP and J2EE fundamentals with exposure to XML, JSON, YAML, and modern Java features.
+    </p>
+  </section>
+
+  <section aria-labelledby="skills-title">
+    <span class="tag" id="skills-title">Skills</span>
+    <dl class="skills-grid">
+      <dt>Languages</dt><dd>Java, Python, JavaScript, SQL</dd>
+      <dt>Frameworks</dt><dd>Spring Boot, Hibernate, J2EE, Node.js, Express.js, Django REST Framework</dd>
+      <dt>Cloud / DevOps</dt><dd>AWS (Lambda, DynamoDB, EC2, S3, RDS, IAM), Docker, Jenkins, CI/CD Pipelines</dd>
+      <dt>Databases</dt><dd>MySQL, MongoDB, DynamoDB, Redis</dd>
+      <dt>Data Formats</dt><dd>JSON, XML, YAML</dd>
+      <dt>Monitoring</dt><dd>Splunk, Honeycomb, PagerDuty, Log Analysis, Performance Profiling</dd>
+      <dt>Code Quality</dt><dd>SonarQube, Code Reviews, Clean Code Principles</dd>
+      <dt>Concepts</dt><dd>REST APIs, Microservices, Saga Pattern, OOPs, System Design, Agile/Scrum</dd>
+      <dt>Tools</dt><dd>Git, GitHub, Postman, Bruno, Jira, Confluence, RabbitMQ, Kafka</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="exp-title">
+    <span class="tag" id="exp-title">Experience</span>
+    <div class="log">
+
+      <div class="row">
+        <div class="ts">Jun 2025 —<br>Present</div>
+        <div>
+          <h3>Software Developer, Tata Consultancy Services (TCS)</h3>
+          <div class="meta">Client: Vanguard (Financial Services) · Indore, M.P.</div>
+          <ul>
+            <li>Performed production log analysis and tracing using Splunk and Honeycomb dashboards, reducing incident resolution time by 20% — directly supporting App Support workflows.</li>
+            <li>Implemented Saga Design Pattern across Spring Boot microservices on JDK 17, ensuring zero-data-loss distributed transactions in a high-availability financial system.</li>
+            <li>Built AWS Lambda serverless workflows integrated with S3 and DynamoDB, enabling event-driven processing for financial data pipelines.</li>
+            <li>Automated CI/CD pipelines using Jenkins and Docker, reducing release cycle time by 30% and enforcing consistent deployment across environments.</li>
+            <li>Conducted code reviews and applied static analysis best practices to maintain high code quality and compliance standards in Agile sprints.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="ts">Apr —<br>May 2025</div>
+        <div>
+          <h3>Software Developer Intern, Stepfinity</h3>
+          <div class="meta">Client: MMHE · Bhopal, M.P.</div>
+          <ul>
+            <li>Delivered REST APIs with JSON/XML payloads for the MMHE project, enabling backend integration with OutSystems and reducing manual data-sync overhead.</li>
+            <li>Integrated Shopify APIs to automate product, order, and inventory workflows, improving operational efficiency across storefronts.</li>
+            <li>Deployed services via Docker and provided client-facing support, troubleshooting post-deployment issues and ensuring zero critical failures.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="ts">Oct 2024 —<br>Apr 2025</div>
+        <div>
+          <h3>Software Engineer Intern, Tryidol Technologies</h3>
+          <div class="meta">Bhopal, M.P.</div>
+          <ul>
+            <li>Secured access across 4 products (Attendance, Inventory, E-commerce, ERP) by implementing JWT/OAuth2 authentication with role-based access control using Spring Boot.</li>
+            <li>Built multi-vendor e-commerce backend with RESTful APIs for vendor onboarding, order processing, and product management using Node.js, Express.js, and MongoDB.</li>
+            <li>Developed ERP modules for HR and finance including payroll logic and employee management — analogous to enterprise J2EE application development.</li>
+            <li>Designed low-level data models and MongoDB schemas for high-frequency queries, improving retrieval performance across reporting modules.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="ts">Feb —<br>Mar 2024</div>
+        <div>
+          <h3>Backend Developer Intern, Zappian Media</h3>
+          <div class="meta">Bhopal, M.P.</div>
+          <ul>
+            <li>Built Node.js REST APIs with JSON data contracts for the Campaign Labs bulk SMS platform, supporting promotional and transactional messaging at scale.</li>
+            <li>Integrated Redis caching to reduce DB load and improve API response speed under high message volumes.</li>
+            <li>Managed structured data in MySQL and document data in MongoDB, applying SQL query optimisation for campaign analytics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="ts">Jun —<br>Dec 2023</div>
+        <div>
+          <h3>Backend Developer Intern, Avyaan Management</h3>
+          <div class="meta">Bhopal, M.P.</div>
+          <ul>
+            <li>Cut audio processing time by 40% by building a multilingual Transcription Tool in Python with real-time processing and batch parallelism.</li>
+            <li>Delivered backend modules for HRMS, CRM, and Warehouse Management using Django REST Framework, Node.js, and MongoDB.</li>
+            <li>Debugged and resolved backend performance issues across multiple projects, gaining hands-on troubleshooting and root-cause analysis experience.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section aria-labelledby="projects-title">
+    <span class="tag" id="projects-title">Projects</span>
+    <div class="log">
+
+      <div class="row">
+        <div class="ts">personal</div>
+        <div>
+          <h3>Fitness AI Tracking Platform</h3>
+          <div class="meta">Java · Spring Boot · MongoDB · RabbitMQ · Docker — <a class="link" href="https://github.com/TheSachinDhakad/FitnessAI" target="_blank" rel="noopener">github.com/TheSachinDhakad/FitnessAI</a></div>
+          <ul>
+            <li>Architected a 3-service microservices system (user, activity, AI-recommendation) with event-driven async communication via RabbitMQ, achieving full service decoupling.</li>
+            <li>Containerized all services with Docker with health-check endpoints, enabling zero-downtime deployments — mirroring PaaS hosting patterns.</li>
+            <li>Designed low-level class and sequence diagrams before implementation, practising structured software design documentation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="ts">personal</div>
+        <div>
+          <h3>Quick Commerce Platform</h3>
+          <div class="meta">React · Node.js · Express.js · MongoDB · Razorpay</div>
+          <ul>
+            <li>Built a multi-vendor e-commerce platform with JWT-secured REST APIs, real-time order tracking, and JSON-based data contracts across all endpoints.</li>
+            <li>Integrated Razorpay payment gateway with webhook-based order confirmation, ensuring reliable transaction state across network failures.</li>
+            <li>Applied OOP principles throughout backend architecture for maintainability and extensibility.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="grid-2" aria-label="Education, certifications, and achievements">
+    <div>
+      <span class="tag amber">Education</span>
+      <div class="simple-item">
+        <h4>B.Tech, Computer Science &amp; Engineering</h4>
+        <p>NRI Institute of Information Science and Technology, Bhopal</p>
+        <p>2020 – 2024 · CGPA 8.5</p>
+      </div>
+
+      <span class="tag amber" style="margin-top:28px;">Achievements</span>
+      <div class="simple-item">
+        <p>Awarded Best Performance during TCS Initial Learning Program (ILP) among batch peers.</p>
+      </div>
+      <div class="simple-item">
+        <p>Winner, College-Level Hackathon — built a scalable software solution under time constraints.</p>
+      </div>
+    </div>
+
+    <div>
+      <span class="tag amber">Certifications</span>
+      <div class="simple-item">
+        <p>Oracle Cloud Infrastructure 2025 — AI Foundations Associate · Foundations Associate · Data Platform Foundations Associate</p>
+      </div>
+      <div class="simple-item">
+        <p>Oracle Fusion AI Agent Studio — Foundations Associate</p>
+      </div>
+      <div class="simple-item">
+        <p>Oracle Guided Learning — Project Management Foundations Associate</p>
+      </div>
+      <div class="simple-item">
+        <p>LinkedIn Learning — Java · Node.js · AI Foundations: Machine Learning · Programming Foundations: Databases</p>
+      </div>
+      <div class="simple-item">
+        <p>Anthropic — Introduction to Claude Cowork · Claude 101</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>sachin_nagar.resume</span>
+    <span>last updated 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
