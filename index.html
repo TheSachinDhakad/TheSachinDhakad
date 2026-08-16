@@ -30,17 +30,87 @@
     margin:0;
     background:var(--ink);
     background-image:
-      radial-gradient(circle at 1px 1px, rgba(94,234,212,0.045) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, rgba(94,234,212,0.06) 1px, transparent 0);
     background-size: 28px 28px;
+    animation:drift 40s linear infinite;
     color:var(--text);
     font-family:"Inter", -apple-system, sans-serif;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
 
-  a{color:var(--signal); text-decoration:none;}
-  a:hover{text-decoration:underline;}
+  a{color:var(--signal); text-decoration:none; position:relative;}
   a:focus-visible, button:focus-visible{outline:2px solid var(--signal); outline-offset:3px;}
+
+  /* underline-draw link animation (skip on plain contact/meta links to keep those quiet) */
+  a.link, .row .meta a, section p a{
+    text-decoration:none;
+    background-image:linear-gradient(var(--signal), var(--signal));
+    background-position:0 100%;
+    background-repeat:no-repeat;
+    background-size:0% 1px;
+    transition:background-size 0.35s ease;
+  }
+  a.link:hover, .row .meta a:hover, section p a:hover{
+    background-size:100% 1px;
+  }
+  .contact-row a:hover{ text-decoration:underline; }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes drift{
+    from{ background-position:0 0; }
+    to{ background-position:120px 120px; }
+  }
+
+  @keyframes blink{
+    0%, 49%{ opacity:1; }
+    50%, 100%{ opacity:0; }
+  }
+
+  @keyframes shimmer{
+    0%{ background-position:-200% 0; }
+    100%{ background-position:200% 0; }
+  }
+
+  @keyframes floaty{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-3px); }
+  }
+
+  @keyframes fillBar{
+    from{ transform:scaleX(0); }
+  }
+
+  #progress-bar{
+    position:fixed;
+    top:0; left:0;
+    height:2px;
+    width:100%;
+    background:var(--signal);
+    transform:scaleX(0);
+    transform-origin:left;
+    z-index:100;
+    box-shadow:0 0 8px rgba(94,234,212,0.6);
+  }
+
+  .reveal .row-child{
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity 0.45s ease, transform 0.45s ease;
+  }
+  .reveal.is-visible .row-child{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #progress-bar{ display:none; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
 
   .wrap{
     max-width:760px;
@@ -63,6 +133,9 @@
     color:var(--signal);
     text-transform:uppercase;
     margin-bottom:18px;
+    opacity:0;
+    animation:fadeUp 0.6s ease forwards;
+    animation-delay:0.05s;
   }
 
   .dot{
@@ -71,6 +144,9 @@
     background:var(--signal);
     box-shadow:0 0 0 0 rgba(94,234,212,0.6);
     animation:pulse 2.4s infinite;
+  }
+  .status-row:hover .dot{
+    animation:pulse 2.4s infinite, floaty 1.2s ease-in-out infinite;
   }
   @media (prefers-reduced-motion: reduce){ .dot{animation:none;} }
 
@@ -86,13 +162,31 @@
     font-weight:700;
     letter-spacing:-0.01em;
     margin:0 0 8px;
+    background:linear-gradient(90deg, #fff 40%, var(--signal) 50%, #fff 60%);
+    background-size:250% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
     color:#fff;
+    opacity:0;
+    animation:fadeUp 0.6s ease forwards, shimmer 5s ease-in-out 1.2s infinite;
+    animation-delay:0.15s, 1.2s;
   }
 
   .role-line{
     color:var(--text-dim);
     font-size:16px;
     margin:0 0 24px;
+    opacity:0;
+    animation:fadeUp 0.6s ease forwards;
+    animation-delay:0.28s;
+  }
+
+  .role-line .cursor{
+    display:inline-block;
+    color:var(--signal);
+    animation:blink 1s step-end infinite;
+    margin-left:2px;
   }
 
   .contact-row{
@@ -102,7 +196,20 @@
     font-family:"JetBrains Mono", monospace;
     font-size:12.5px;
     color:var(--text-dim);
+    opacity:0;
+    animation:fadeUp 0.6s ease forwards;
+    animation-delay:0.4s;
   }
+  .contact-row span{
+    opacity:0;
+    animation:fadeUp 0.4s ease forwards;
+  }
+  .contact-row span:nth-child(1){ animation-delay:0.55s; }
+  .contact-row span:nth-child(2){ animation-delay:0.62s; }
+  .contact-row span:nth-child(3){ animation-delay:0.69s; }
+  .contact-row span:nth-child(4){ animation-delay:0.76s; }
+  .contact-row span:nth-child(5){ animation-delay:0.83s; }
+  .contact-row span:nth-child(6){ animation-delay:0.9s; }
   .contact-row span::before{
     content:"·";
     margin-right:16px;
@@ -113,6 +220,16 @@
   /* ---------- SECTION SCAFFOLDING ---------- */
   section{
     margin-bottom:44px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
   }
 
   .tag{
@@ -129,12 +246,22 @@
     border-radius:4px;
     padding:3px 8px;
     margin-bottom:16px;
+    transition:background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .tag:hover{
+    background:rgba(94,234,212,0.16);
+    border-color:rgba(94,234,212,0.5);
+    transform:translateY(-1px) rotate(-1deg);
   }
 
   .tag.amber{
     color:var(--amber);
     background:rgba(240,180,41,0.08);
     border-color:rgba(240,180,41,0.28);
+  }
+  .tag.amber:hover{
+    background:rgba(240,180,41,0.16);
+    border-color:rgba(240,180,41,0.5);
   }
 
   h2.section-title{
@@ -152,12 +279,30 @@
     border-top:1px solid var(--rule);
   }
   .row{
+    position:relative;
     display:grid;
     grid-template-columns:120px 1fr;
     gap:20px;
-    padding:20px 0;
+    padding:20px 0 20px 14px;
+    margin-left:-14px;
     border-bottom:1px solid var(--rule);
+    transition:background 0.25s ease;
   }
+  .row::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:2px;
+    background:var(--signal);
+    transform:scaleY(0);
+    transform-origin:top;
+    transition:transform 0.3s ease;
+  }
+  .row:hover{ background:rgba(94,234,212,0.03); }
+  .row:hover::before{ transform:scaleY(1); }
+  .row:hover .ts{ color:var(--signal); }
+  .row:hover h3{ color:#fff; }
+
   @media (max-width:560px){
     .row{ grid-template-columns:1fr; gap:6px; }
   }
@@ -168,6 +313,7 @@
     color:var(--text-faint);
     padding-top:2px;
     white-space:nowrap;
+    transition:color 0.25s ease;
   }
 
   .row h3{
@@ -175,6 +321,7 @@
     font-size:15.5px;
     font-weight:600;
     color:var(--text);
+    transition:color 0.25s ease;
   }
   .row .meta{
     font-size:12.5px;
@@ -234,8 +381,9 @@
     .grid-2{ grid-template-columns:1fr; gap:32px; }
   }
 
-  .simple-item{ margin-bottom:14px; }
+  .simple-item{ margin-bottom:14px; transition:transform 0.25s ease; }
   .simple-item:last-child{ margin-bottom:0; }
+  .simple-item:hover{ transform:translateX(3px); }
   .simple-item h4{
     margin:0 0 2px;
     font-size:14px;
@@ -265,13 +413,14 @@
 </style>
 </head>
 <body>
+<div id="progress-bar" aria-hidden="true"></div>
 
 <div class="wrap">
 
   <header class="hero">
     <div class="status-row"><span class="dot" aria-hidden="true"></span> open to work</div>
     <h1>Sachin Nagar</h1>
-    <p class="role-line">Backend Software Engineer — Java · Spring Boot · AWS Cloud-Native Microservices</p>
+    <p class="role-line">Backend Software Engineer — Java · Spring Boot · AWS Cloud-Native Microservices<span class="cursor">_</span></p>
     <div class="contact-row">
       <span>Indore, Madhya Pradesh, India</span>
       <span>+91 9098224586</span>
@@ -282,7 +431,7 @@
     </div>
   </header>
 
-  <section aria-labelledby="summary-title">
+  <section class="reveal" aria-labelledby="summary-title">
     <span class="tag" id="summary-title">Summary</span>
     <p class="summary">
       Backend Software Engineer with 2+ years of combined experience, including enterprise work at TCS on the
@@ -293,7 +442,7 @@
     </p>
   </section>
 
-  <section aria-labelledby="skills-title">
+  <section class="reveal" aria-labelledby="skills-title">
     <span class="tag" id="skills-title">Skills</span>
     <dl class="skills-grid">
       <dt>Languages</dt><dd>Java, Python, JavaScript, SQL</dd>
@@ -308,74 +457,74 @@
     </dl>
   </section>
 
-  <section aria-labelledby="exp-title">
+  <section class="reveal" aria-labelledby="exp-title">
     <span class="tag" id="exp-title">Experience</span>
     <div class="log">
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">Jun 2025 —<br>Present</div>
         <div>
           <h3>Software Developer, Tata Consultancy Services (TCS)</h3>
           <div class="meta">Client: Vanguard (Financial Services) · Indore, M.P.</div>
           <ul>
-            <li>Performed production log analysis and tracing using Splunk and Honeycomb dashboards, reducing incident resolution time by 20% — directly supporting App Support workflows.</li>
-            <li>Implemented Saga Design Pattern across Spring Boot microservices on JDK 17, ensuring zero-data-loss distributed transactions in a high-availability financial system.</li>
-            <li>Built AWS Lambda serverless workflows integrated with S3 and DynamoDB, enabling event-driven processing for financial data pipelines.</li>
-            <li>Automated CI/CD pipelines using Jenkins and Docker, reducing release cycle time by 30% and enforcing consistent deployment across environments.</li>
-            <li>Conducted code reviews and applied static analysis best practices to maintain high code quality and compliance standards in Agile sprints.</li>
+            <li class="row-child">Performed production log analysis and tracing using Splunk and Honeycomb dashboards, reducing incident resolution time by 20% — directly supporting App Support workflows.</li>
+            <li class="row-child">Implemented Saga Design Pattern across Spring Boot microservices on JDK 17, ensuring zero-data-loss distributed transactions in a high-availability financial system.</li>
+            <li class="row-child">Built AWS Lambda serverless workflows integrated with S3 and DynamoDB, enabling event-driven processing for financial data pipelines.</li>
+            <li class="row-child">Automated CI/CD pipelines using Jenkins and Docker, reducing release cycle time by 30% and enforcing consistent deployment across environments.</li>
+            <li class="row-child">Conducted code reviews and applied static analysis best practices to maintain high code quality and compliance standards in Agile sprints.</li>
           </ul>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">Apr —<br>May 2025</div>
         <div>
           <h3>Software Developer Intern, Stepfinity</h3>
           <div class="meta">Client: MMHE · Bhopal, M.P.</div>
           <ul>
-            <li>Delivered REST APIs with JSON/XML payloads for the MMHE project, enabling backend integration with OutSystems and reducing manual data-sync overhead.</li>
-            <li>Integrated Shopify APIs to automate product, order, and inventory workflows, improving operational efficiency across storefronts.</li>
-            <li>Deployed services via Docker and provided client-facing support, troubleshooting post-deployment issues and ensuring zero critical failures.</li>
+            <li class="row-child">Delivered REST APIs with JSON/XML payloads for the MMHE project, enabling backend integration with OutSystems and reducing manual data-sync overhead.</li>
+            <li class="row-child">Integrated Shopify APIs to automate product, order, and inventory workflows, improving operational efficiency across storefronts.</li>
+            <li class="row-child">Deployed services via Docker and provided client-facing support, troubleshooting post-deployment issues and ensuring zero critical failures.</li>
           </ul>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">Oct 2024 —<br>Apr 2025</div>
         <div>
           <h3>Software Engineer Intern, Tryidol Technologies</h3>
           <div class="meta">Bhopal, M.P.</div>
           <ul>
-            <li>Secured access across 4 products (Attendance, Inventory, E-commerce, ERP) by implementing JWT/OAuth2 authentication with role-based access control using Spring Boot.</li>
-            <li>Built multi-vendor e-commerce backend with RESTful APIs for vendor onboarding, order processing, and product management using Node.js, Express.js, and MongoDB.</li>
-            <li>Developed ERP modules for HR and finance including payroll logic and employee management — analogous to enterprise J2EE application development.</li>
-            <li>Designed low-level data models and MongoDB schemas for high-frequency queries, improving retrieval performance across reporting modules.</li>
+            <li class="row-child">Secured access across 4 products (Attendance, Inventory, E-commerce, ERP) by implementing JWT/OAuth2 authentication with role-based access control using Spring Boot.</li>
+            <li class="row-child">Built multi-vendor e-commerce backend with RESTful APIs for vendor onboarding, order processing, and product management using Node.js, Express.js, and MongoDB.</li>
+            <li class="row-child">Developed ERP modules for HR and finance including payroll logic and employee management — analogous to enterprise J2EE application development.</li>
+            <li class="row-child">Designed low-level data models and MongoDB schemas for high-frequency queries, improving retrieval performance across reporting modules.</li>
           </ul>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">Feb —<br>Mar 2024</div>
         <div>
           <h3>Backend Developer Intern, Zappian Media</h3>
           <div class="meta">Bhopal, M.P.</div>
           <ul>
-            <li>Built Node.js REST APIs with JSON data contracts for the Campaign Labs bulk SMS platform, supporting promotional and transactional messaging at scale.</li>
-            <li>Integrated Redis caching to reduce DB load and improve API response speed under high message volumes.</li>
-            <li>Managed structured data in MySQL and document data in MongoDB, applying SQL query optimisation for campaign analytics.</li>
+            <li class="row-child">Built Node.js REST APIs with JSON data contracts for the Campaign Labs bulk SMS platform, supporting promotional and transactional messaging at scale.</li>
+            <li class="row-child">Integrated Redis caching to reduce DB load and improve API response speed under high message volumes.</li>
+            <li class="row-child">Managed structured data in MySQL and document data in MongoDB, applying SQL query optimisation for campaign analytics.</li>
           </ul>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">Jun —<br>Dec 2023</div>
         <div>
           <h3>Backend Developer Intern, Avyaan Management</h3>
           <div class="meta">Bhopal, M.P.</div>
           <ul>
-            <li>Cut audio processing time by 40% by building a multilingual Transcription Tool in Python with real-time processing and batch parallelism.</li>
-            <li>Delivered backend modules for HRMS, CRM, and Warehouse Management using Django REST Framework, Node.js, and MongoDB.</li>
-            <li>Debugged and resolved backend performance issues across multiple projects, gaining hands-on troubleshooting and root-cause analysis experience.</li>
+            <li class="row-child">Cut audio processing time by 40% by building a multilingual Transcription Tool in Python with real-time processing and batch parallelism.</li>
+            <li class="row-child">Delivered backend modules for HRMS, CRM, and Warehouse Management using Django REST Framework, Node.js, and MongoDB.</li>
+            <li class="row-child">Debugged and resolved backend performance issues across multiple projects, gaining hands-on troubleshooting and root-cause analysis experience.</li>
           </ul>
         </div>
       </div>
@@ -383,32 +532,32 @@
     </div>
   </section>
 
-  <section aria-labelledby="projects-title">
+  <section class="reveal" aria-labelledby="projects-title">
     <span class="tag" id="projects-title">Projects</span>
     <div class="log">
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">personal</div>
         <div>
           <h3>Fitness AI Tracking Platform</h3>
           <div class="meta">Java · Spring Boot · MongoDB · RabbitMQ · Docker — <a class="link" href="https://github.com/TheSachinDhakad/FitnessAI" target="_blank" rel="noopener">github.com/TheSachinDhakad/FitnessAI</a></div>
           <ul>
-            <li>Architected a 3-service microservices system (user, activity, AI-recommendation) with event-driven async communication via RabbitMQ, achieving full service decoupling.</li>
-            <li>Containerized all services with Docker with health-check endpoints, enabling zero-downtime deployments — mirroring PaaS hosting patterns.</li>
-            <li>Designed low-level class and sequence diagrams before implementation, practising structured software design documentation.</li>
+            <li class="row-child">Architected a 3-service microservices system (user, activity, AI-recommendation) with event-driven async communication via RabbitMQ, achieving full service decoupling.</li>
+            <li class="row-child">Containerized all services with Docker with health-check endpoints, enabling zero-downtime deployments — mirroring PaaS hosting patterns.</li>
+            <li class="row-child">Designed low-level class and sequence diagrams before implementation, practising structured software design documentation.</li>
           </ul>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <div class="ts">personal</div>
         <div>
           <h3>Quick Commerce Platform</h3>
           <div class="meta">React · Node.js · Express.js · MongoDB · Razorpay</div>
           <ul>
-            <li>Built a multi-vendor e-commerce platform with JWT-secured REST APIs, real-time order tracking, and JSON-based data contracts across all endpoints.</li>
-            <li>Integrated Razorpay payment gateway with webhook-based order confirmation, ensuring reliable transaction state across network failures.</li>
-            <li>Applied OOP principles throughout backend architecture for maintainability and extensibility.</li>
+            <li class="row-child">Built a multi-vendor e-commerce platform with JWT-secured REST APIs, real-time order tracking, and JSON-based data contracts across all endpoints.</li>
+            <li class="row-child">Integrated Razorpay payment gateway with webhook-based order confirmation, ensuring reliable transaction state across network failures.</li>
+            <li class="row-child">Applied OOP principles throughout backend architecture for maintainability and extensibility.</li>
           </ul>
         </div>
       </div>
@@ -416,7 +565,7 @@
     </div>
   </section>
 
-  <section class="grid-2" aria-label="Education, certifications, and achievements">
+  <section class="grid-2 reveal" aria-label="Education, certifications, and achievements">
     <div>
       <span class="tag amber">Education</span>
       <div class="simple-item">
@@ -454,12 +603,62 @@
     </div>
   </section>
 
-  <footer>
+  <footer class="reveal">
     <span>sachin_nagar.resume</span>
     <span>last updated 2026</span>
   </footer>
 
 </div>
 
+<script>
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+
+    // stagger the delay of list items / row-children inside each reveal block
+    document.querySelectorAll('.reveal').forEach(function(block){
+      var children = block.querySelectorAll('.row-child');
+      children.forEach(function(child, i){
+        child.style.transitionDelay = (i * 55) + 'ms';
+      });
+    });
+
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function(el){ el.classList.add('is-visible'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry, i){
+          if (entry.isIntersecting){
+            var el = entry.target;
+            setTimeout(function(){ el.classList.add('is-visible'); }, i * 40);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      items.forEach(function(el){ io.observe(el); });
+    }
+
+    // scroll progress bar
+    var bar = document.getElementById('progress-bar');
+    if (bar) {
+      var ticking = false;
+      function updateBar(){
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+        bar.style.transform = 'scaleX(' + pct + ')';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function(){
+        if (!ticking){
+          window.requestAnimationFrame(updateBar);
+          ticking = true;
+        }
+      }, { passive: true });
+      updateBar();
+    }
+  })();
+</script>
 </body>
 </html>
