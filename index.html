@@ -47,15 +47,16 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b),var(-
 @keyframes spin{to{transform:rotate(360deg)}}
 .photo .frame{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:var(--card);border:6px solid var(--bg);z-index:2;display:grid;place-items:center;font:800 80px Sora,sans-serif;color:var(--a)}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.chip-float{position:absolute;z-index:3;font:500 12px "Fira Code",monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;animation:bob 4s ease-in-out infinite}
-.chip-float:nth-of-type(1){top:6%;right:-6%;color:var(--y)}.chip-float:nth-of-type(2){bottom:14%;left:-10%;color:var(--c);animation-delay:1s}.chip-float:nth-of-type(3){bottom:-2%;right:4%;color:var(--a);animation-delay:2s}
-@keyframes bob{50%{transform:translateY(-9px)}}
+.orbit{position:absolute;inset:-38px;z-index:3;animation:spin 22s linear infinite}
+.orb{position:absolute;width:0;height:0}
+.orb.o1{left:50%;top:0}.orb.o2{left:100%;top:50%}.orb.o3{left:50%;top:100%}.orb.o4{left:0;top:50%}
+.chip-float{position:absolute;left:0;top:0;translate:-50% -50%;white-space:nowrap;font:500 13px "Fira Code",monospace;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 14px;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:spin 22s linear infinite reverse}
 
 /* TERMINAL */
 .term{background:#0a0e18;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);margin:24px 0 8px}
 .term-h{display:flex;align-items:center;gap:7px;padding:11px 16px;background:var(--card);border-bottom:1px solid var(--line);font:12px "Fira Code",monospace;color:var(--dim)}
 .term-h i{width:11px;height:11px;border-radius:50%;display:block}.term-h span{margin-left:10px}
-pre{margin:0;padding:20px 22px;font:14px/1.8 "Fira Code",monospace;min-height:260px;overflow-x:auto;white-space:pre}
+pre{margin:0;padding:20px 22px;font:14px/1.8 "Fira Code",monospace;min-height:310px;overflow-x:auto;white-space:pre}
 .k{color:var(--b)}.t{color:var(--a)}.s{color:var(--y)}.n{color:var(--c)}.m{color:#5f6b8a}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0 8px}
 @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
@@ -81,6 +82,12 @@ h2{font:600 26px "Fira Code",monospace;margin:0 0 26px}h2::before{content:"// ";
 .projs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .proj{background:linear-gradient(160deg,var(--card),#0f1424);border:1px solid var(--line);border-radius:16px;padding:22px;transition:transform .2s ease-out,border-color .25s;transform-style:preserve-3d}
 .proj:hover{border-color:var(--b)}.proj h3{margin:0 0 4px}.proj .st{font:12px "Fira Code",monospace;color:var(--a);margin-bottom:12px}
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.ed{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;transition:border-color .25s,transform .25s}
+.ed:hover{border-color:var(--y);transform:translateY(-3px)}
+.ed .res{min-width:84px;text-align:center;font:800 24px Sora,sans-serif;background:linear-gradient(135deg,var(--y),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ed .res small{display:block;font:500 11px "Fira Code",monospace;color:var(--dim);-webkit-text-fill-color:var(--dim)}
+.ed h3{margin:0;font-size:15.5px}.ed p{margin:2px 0 0;font-size:13.5px;color:var(--dim)}.ed .yr{font:12px "Fira Code",monospace;color:var(--y)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:720px){.two{grid-template-columns:1fr}}
 .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}.box p{margin:0 0 10px;color:var(--dim);font-size:14.5px}.box h4{margin:0 0 12px;font:500 13px "Fira Code",monospace;color:var(--y)}
 .contact{text-align:center;padding:72px 0 40px}.contact h2::before{content:""}
@@ -96,7 +103,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
 </head>
 <body>
 <div id="bar"></div>
-<nav><div class="wrap"><b>&lt;sachin<i>/</i>&gt;</b><div><a href="#about">About</a><a href="#skills">Skills</a><a href="#exp">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a></div></div></nav>
+<nav><div class="wrap"><b>&lt;sachin<i>/</i>&gt;</b><div><a href="#about">About</a><a href="#skills">Skills</a><a href="#exp">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a></div></div></nav>
 
 <main class="wrap">
   <header class="hero">
@@ -106,7 +113,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
       <div class="typed" aria-live="off">&gt; <b id="role"></b><span class="caret"></span></div>
       <p class="about" style="margin-top:18px">I build reliable Java and Spring Boot services on AWS, from event-driven pipelines to the dashboards that show what production is doing.</p>
       <div class="cta">
-        <a class="btn p" href="mailto:sde.sachinnagar@gmail.com">Hire me</a>
+        <a class="btn p" href="mailto:sachindhakad7265@gmail.com">Hire me</a>
         <a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="#projects">See my work</a>
       </div>
@@ -114,7 +121,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
     <div class="photo-col">
       <div class="photo">
         <div class="frame">SN<img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/my_image-.png" alt="Sachin Nagar" onerror="this.remove()"></div>
-        <div class="chip-float">@Service</div><div class="chip-float">Kafka</div><div class="chip-float">AWS λ</div>
+        <div class="orbit"><div class="orb o1"><span class="chip-float" style="color:var(--c)">Microservices</span></div><div class="orb o2"><span class="chip-float" style="color:var(--y)">AWS</span></div><div class="orb o3"><span class="chip-float" style="color:var(--a)">Kafka</span></div><div class="orb o4"><span class="chip-float" style="color:var(--b)">Spring Boot</span></div></div>
       </div>
     </div>
   </header>
@@ -133,7 +140,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
 
   <section id="about" class="rv">
     <h2>about</h2>
-    <p class="about">Backend Software Engineer with 2+ years of combined experience, including enterprise work at TCS on the Vanguard financial platform. Hands-on with Docker, Jenkins CI/CD, AWS Lambda, DynamoDB, and REST/JSON APIs. Experienced in production log analysis using Splunk and Honeycomb, application support, and distributed-system debugging. Strong OOP and J2EE fundamentals with exposure to XML, JSON, YAML, and modern Java features.</p>
+    <p class="about">Backend Software Engineer with 2+ years of combined experience, including enterprise work at TCS on the Vanguard financial platform. Hands-on with Docker, Jenkins CI/CD, AWS Lambda, DynamoDB, and REST/JSON APIs. Experienced in production log analysis using Splunk and Honeycomb, application support, and distributed-system debugging. Strong OOP and J2EE fundamentals with exposure to XML, JSON, YAML, and modern Java features. Now a Senior Executive at IB Group, building real-time IoT dashboards with Node-RED and Grafana, backed by SQL data pipelines.</p>
   </section>
 
   <section id="skills" class="rv">
@@ -141,18 +148,21 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
     <div class="skills">
       <div class="sk"><h4>languages</h4><span>Java</span><span>Python</span><span>JavaScript</span><span>SQL</span></div>
       <div class="sk"><h4>frameworks</h4><span>Spring Boot</span><span>Hibernate</span><span>J2EE</span><span>Node.js</span><span>Express.js</span><span>Django REST</span></div>
-      <div class="sk"><h4>cloud and devops</h4><span>AWS Lambda</span><span>DynamoDB</span><span>EC2</span><span>S3</span><span>RDS</span><span>IAM</span><span>Docker</span><span>Jenkins</span><span>CI/CD</span></div>
-      <div class="sk"><h4>databases</h4><span>MySQL</span><span>MongoDB</span><span>DynamoDB</span><span>Redis</span></div>
+      <div class="sk"><h4>cloud and devops</h4><span>AWS Lambda</span><span>DynamoDB</span><span>ECS</span><span>EC2</span><span>S3</span><span>RDS</span><span>IAM</span><span>Docker</span><span>Jenkins</span><span>CI/CD</span></div>
+      <div class="sk"><h4>iot and data</h4><span>Node-RED</span><span>Grafana</span><span>IoT Dashboards</span><span>Telemetry Pipelines</span><span>SQL Aggregations</span></div>
+      <div class="sk"><h4>databases</h4><span>MySQL</span><span>MongoDB</span><span>DynamoDB</span><span>Redis</span><span>PostgreSQL</span></div>
       <div class="sk"><h4>monitoring and quality</h4><span>Splunk</span><span>Honeycomb</span><span>PagerDuty</span><span>SonarQube</span><span>Code Reviews</span></div>
-      <div class="sk"><h4>concepts and tools</h4><span>REST APIs</span><span>Microservices</span><span>Saga Pattern</span><span>System Design</span><span>Agile/Scrum</span><span>Git</span><span>Postman</span><span>Bruno</span><span>Jira</span><span>RabbitMQ</span><span>Kafka</span></div>
+      <div class="sk"><h4>concepts and tools</h4><span>REST APIs</span><span>Microservices</span><span>Saga Pattern</span><span>Event-Driven</span><span>Confluent</span><span>OAuth 2.0</span><span>Okta</span><span>JWT</span><span>RBAC</span><span>System Design</span><span>Agile/Scrum</span><span>Git</span><span>Postman</span><span>Bruno</span><span>Jira</span><span>RabbitMQ</span><span>Kafka</span></div>
     </div>
   </section>
 
   <section id="exp">
     <h2>experience</h2>
     <div class="tl">
-      <div class="job rv"><span class="when">Jun 2025 — Present</span><h3>Software Developer, Tata Consultancy Services</h3><div class="co">Client: Vanguard (Financial Services) · Indore, M.P.</div>
-        <ul><li>Performed production log analysis and tracing using Splunk and Honeycomb dashboards, reducing incident resolution time by 20%.</li><li>Implemented the Saga design pattern across Spring Boot microservices on JDK 17, ensuring zero-data-loss distributed transactions.</li><li>Built AWS Lambda serverless workflows integrated with S3 and DynamoDB for event-driven financial data pipelines.</li><li>Automated CI/CD pipelines using Jenkins and Docker, reducing release cycle time by 30%.</li><li>Conducted code reviews and applied static analysis best practices in Agile sprints.</li></ul></div>
+      <div class="job rv"><span class="when">Oct 2026 — Present</span><h3>Senior Executive, IB Group</h3><div class="co">Real-time IoT dashboards · SQL data pipelines · Operations</div>
+        <ul><li>Real-time IoT dashboards: architected and deployed industrial monitoring dashboards with Node-RED and Grafana, capturing operational metrics across live facility units for better visibility and decision support.</li><li>Data processing and backend logic: engineered scalable data ingestion pipelines in Node.js and Python, with multi-source telemetry parsing and automated data reconciliation.</li><li>SQL database management: formulated SQL query patterns and aggregation jobs to monitor equipment uptime, reduce operational bottlenecks, and generate daily executive performance audit reports.</li><li>System reliability and controls: configured automated alerting rules and fault-tolerance triggers in Grafana to notify operational teams of anomalies quickly, reducing critical turnaround delays.</li></ul></div>
+      <div class="job rv"><span class="when">Jun 2025 — Oct 2026</span><h3>Software Developer, Tata Consultancy Services</h3><div class="co">Client: Vanguard (Financial Services) · Indore, M.P.</div>
+        <ul><li>Performed production log analysis and tracing using Splunk and Honeycomb dashboards, reducing incident resolution time by 20%.</li><li>Implemented the Saga design pattern across Spring Boot microservices on JDK 17, ensuring zero-data-loss distributed transactions.</li><li>Built AWS Lambda serverless workflows integrated with S3 and DynamoDB for event-driven financial data pipelines.</li><li>Automated CI/CD pipelines using Jenkins and Docker, reducing release cycle time by 30%.</li><li>Built and supported backend enterprise microservices on AWS for a global financial services client (Vanguard platform), operating within a 99.9% uptime SLA.</li><li>Implemented OAuth 2.0 and role-based access control (RBAC) across transactional endpoints for data confidentiality and regulatory compliance.</li><li>Redesigned data query structures and indexing patterns, cutting latency by 35% during high-volume processing windows.</li><li>Conducted code reviews and applied static analysis best practices in Agile sprints.</li></ul></div>
       <div class="job rv"><span class="when">Apr — May 2025</span><h3>Software Developer Intern, Stepfinity</h3><div class="co">Client: MMHE · Bhopal, M.P.</div>
         <ul><li>Delivered REST APIs with JSON/XML payloads, enabling backend integration with OutSystems.</li><li>Integrated Shopify APIs to automate product, order, and inventory workflows.</li><li>Deployed services via Docker and supported the client through post-deployment issues.</li></ul></div>
       <div class="job rv"><span class="when">Oct 2024 — Apr 2025</span><h3>Software Engineer Intern, Tryidol Technologies</h3><div class="co">Bhopal, M.P.</div>
@@ -167,26 +177,37 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
   <section id="projects" class="rv">
     <h2>projects</h2>
     <div class="projs">
-      <div class="proj"><h3>Fitness AI Tracking Platform</h3><div class="st">Java · Spring Boot · MongoDB · RabbitMQ · Docker</div>
+      <div class="proj"><h3>Fitness AI Tracking Platform</h3><div class="st">Java · Spring Boot · MongoDB · RabbitMQ · Eureka · Docker</div>
         <ul><li>Architected 3 microservices (user, activity, AI-recommendation) decoupled through RabbitMQ events.</li><li>Containerized every service with Docker and health-check endpoints for zero-downtime deployments.</li><li>Drew class and sequence diagrams before implementation.</li></ul>
         <a href="https://github.com/TheSachinDhakad/FitnessAI" target="_blank" rel="noopener">github.com/TheSachinDhakad/FitnessAI</a></div>
       <div class="proj"><h3>Quick Commerce Platform</h3><div class="st">React · Node.js · Express.js · MongoDB · Razorpay</div>
         <ul><li>Built a multi-vendor platform with JWT-secured REST APIs and real-time order tracking.</li><li>Integrated Razorpay with webhook-based order confirmation so transaction state survives network failures.</li><li>Applied OOP principles for maintainable, extensible backend code.</li></ul></div>
+      <div class="proj"><h3>Inventory Billing Software</h3><div class="st">MERN · JWT Authentication</div>
+        <ul><li>Role-based access control for secure, per-role access.</li><li>Real-time inventory tracking across stock movements.</li><li>Barcode scanning system for fast billing.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="education" class="rv">
+    <h2>education</h2>
+    <div class="edu">
+      <div class="ed"><div class="res">8.56<small>CGPA</small></div><div><span class="yr">2020 – 2024</span><h3>B.Tech, Computer Science &amp; Engineering</h3><p>NRI Institute of Information Science &amp; Technology, Bhopal</p></div></div>
+      <div class="ed"><div class="res">81.0%<small>Class XII</small></div><div><span class="yr">2020</span><h3>Higher Secondary (Class XII)</h3><p>Govt. Gandhi Higher Secondary School, Pachore</p></div></div>
+      <div class="ed"><div class="res">89.0%<small>Class X</small></div><div><span class="yr">2018</span><h3>High School (Class X)</h3><p>Govt. High School, Kodiya Jargar</p></div></div>
     </div>
   </section>
 
   <section class="rv">
-    <h2>education and more</h2>
+    <h2>achievements and certifications</h2>
     <div class="two">
-      <div class="box"><h4>education</h4><p><b style="color:var(--tx)">B.Tech, Computer Science &amp; Engineering</b><br>NRI Institute of Information Science and Technology, Bhopal<br>2020 – 2024 · CGPA 8.5</p><h4 style="margin-top:18px">achievements</h4><p>Best Performance, TCS Initial Learning Program (ILP), among batch peers.</p><p>Winner, college-level hackathon: built a scalable solution under time constraints.</p></div>
-      <div class="box"><h4>certifications</h4><p>Oracle Cloud Infrastructure 2025: AI Foundations, Foundations, Data Platform Foundations (Associate)</p><p>Oracle Fusion AI Agent Studio: Foundations Associate</p><p>Oracle Guided Learning: Project Management Foundations Associate</p><p>LinkedIn Learning: Java, Node.js, AI Foundations: Machine Learning, Programming Foundations: Databases</p><p>Anthropic: Introduction to Claude Cowork, Claude 101</p></div>
+      <div class="box"><h4>achievements</h4><p>Best Performance, TCS Initial Learning Program (ILP), among batch peers.</p><p>Winner, college-level hackathon: built a scalable solution under time constraints.</p><p>1st place, state-level technical solution design hackathon.</p><p>Solved 500+ DSA problems on LeetCode.</p></div>
+      <div class="box"><h4>certifications</h4><p>Oracle Cloud Infrastructure 2025: AI Foundations, Foundations, Data Platform Foundations (Associate)</p><p>Oracle Fusion AI Agent Studio: Foundations Associate</p><p>Oracle Guided Learning: Project Management Foundations Associate</p><p>LinkedIn Learning: Java, Node.js, AI Foundations: Machine Learning, Programming Foundations: Databases</p><p>Anthropic: Introduction to Claude Cowork, Claude 101, Claude Certified</p></div>
     </div>
   </section>
 
   <section id="contact" class="contact rv">
     <h2>let us build something</h2>
     <p class="about" style="margin:0 auto">Indore, Madhya Pradesh, India</p>
-    <div class="links"><a class="btn p" href="mailto:sachindhakad7265@gmail.com">sachindhakad7265@gmail.com</a><a class="btn" href="tel:+919098224586">+91 9098224586</a><a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a><a class="btn" href="#" rel="noopener">LinkedIn</a><a class="btn" href="#" rel="noopener">LeetCode</a></div>
+    <div class="links"><a class="btn p" href="mailto:sachindhakad7265@gmail.com">sachindhakad7265@gmail.com</a><a class="btn" href="tel:+919098224586">+91 9098224586</a><a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://www.linkedin.com/in/sachin-nagar-dev/" target="_blank" rel="noopener">LinkedIn</a><a class="btn" href="https://leetcode.com/sachin-nagar-dev/" target="_blank" rel="noopener">LeetCode</a><a class="btn" href="https://www.hackerrank.com/profile/sachindhakad7265" target="_blank" rel="noopener">HackerRank</a><a class="btn" href="https://instagram.com/thesachindhakad" target="_blank" rel="noopener">Instagram</a></div>
   </section>
   <footer>sachin_nagar.portfolio · last updated 2026</footer>
 </main>
@@ -217,6 +238,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
     [['k','public class '],['t','Sachin '],['','{']],
     [['','  '],['k','String '],['','role = '],['s','"Backend Engineer"'],['','; ']],
     [['','  '],['k','String'],['','[] stack = {'],['s','"Java 17"'],['',', '],['s','"Spring Boot"'],['',', '],['s','"AWS"'],['',', '],['s','"Kafka"'],['','};']],
+    [['','  '],['k','String '],['','now = '],['s','"Senior Executive @ IB Group"'],['',';']],
     [['','  '],['k','boolean '],['','openToWork = '],['n','true'],['',';']],
     [['',' ']],
     [['','  '],['k','void '],['t','ship'],['','() {']],
