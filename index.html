@@ -22,7 +22,7 @@ nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:rgba(
 nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
 nav b{font-family:"Fira Code",monospace;font-weight:600}nav b i{color:var(--a);font-style:normal}
 nav div a{color:var(--dim);margin-left:20px;font-size:14px}nav div a:hover{color:var(--tx);text-decoration:none}
-@media(max-width:640px){nav div{display:none}}
+@media(max-width:640px){nav .wrap{height:auto;flex-direction:column;gap:2px;padding-top:8px;padding-bottom:8px}nav div{display:flex;gap:18px;overflow-x:auto;max-width:100%;white-space:nowrap;scrollbar-width:none}nav div a{margin:0}}
 
 /* HERO */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:72px 0 40px}
@@ -97,13 +97,64 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
 /* floating code symbols */
 .sym{position:fixed;font:500 18px "Fira Code",monospace;color:rgba(56,224,196,.13);pointer-events:none;animation:rise linear infinite}
 @keyframes rise{from{transform:translateY(105vh)}to{transform:translateY(-10vh)}}
-.rv{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}.rv.on{opacity:1;transform:none}
+.rv{opacity:0;transform:perspective(900px) translateY(44px) rotateX(14deg) scale(.97);transform-origin:50% 100%;transition:opacity .7s,transform .9s cubic-bezier(.2,.9,.25,1.15)}.rv.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.sym{display:none}}
+
+/* 3D / glass layer */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main.wrap{z-index:1}
+#glow{position:fixed;left:0;top:0;width:460px;height:460px;margin:-230px 0 0 -230px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,255,.17),transparent 65%);pointer-events:none;z-index:0;opacity:0;transition:opacity .4s}
+.sk,.job,.proj,.box,.ed,.stat{background:rgba(18,24,41,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.job:hover,.sk:hover,.stat:hover,.box:hover{border-color:rgba(56,224,196,.55)}
+.photo{transform-style:preserve-3d;will-change:transform}
+.btn{will-change:transform}
+h1{text-shadow:0 0 40px rgba(139,123,255,.25)}
+@media(max-width:640px){main.wrap{padding:0 16px}.hero{gap:30px}.cta .btn{flex:1 1 auto;text-align:center}}
+@media(max-width:480px){pre{font-size:12px;padding:16px}.photo{width:68vw}.orbit{inset:-26px}.chip-float{font-size:11px;padding:5px 10px}h2{font-size:21px}.job{padding:16px}.ed{flex-direction:column;text-align:center}.contact .links .btn{width:100%;text-align:center}.typed{font-size:15px}}
+/* developer themes */
+:root[data-theme="vscode"]{--bg:#1e1e1e;--card:#252526;--line:#3c3c3c;--tx:#d4d4d4;--dim:#9da1a6;--a:#4ec9b0;--b:#569cd6;--c:#c586c0;--y:#dcdcaa}
+:root[data-theme="dracula"]{--bg:#282a36;--card:#343746;--line:#44475a;--tx:#f8f8f2;--dim:#a9afc8;--a:#50fa7b;--b:#bd93f9;--c:#ff79c6;--y:#f1fa8c}
+:root[data-theme="matrix"]{--bg:#020a04;--card:#06150a;--line:#0d3a1a;--tx:#c8ffd4;--dim:#6fbf86;--a:#00ff66;--b:#33cc77;--c:#99ffbb;--y:#ccff66}
+:root[data-theme="light"]{--bg:#f6f8fa;--card:#ffffff;--line:#d0d7de;--tx:#1f2328;--dim:#59636e;--a:#0a7f6d;--b:#6f42c1;--c:#cf222e;--y:#9a6700}
+[data-theme="light"] nav{background:rgba(246,248,250,.85)}
+[data-theme="light"] h1{text-shadow:none}
+[data-theme="light"] .btn.p{color:#fff}
+[data-theme="light"] .term{--a:#38e0c4;--b:#8b7bff;--c:#ff7ab6;--y:#ffd166;--tx:#e6edf3;--dim:#98a2bd;--line:#222b44;--card:#121829}
+[data-theme="matrix"] body,[data-theme="matrix"]{font-family:"Fira Code",monospace}
+.themes{display:flex;gap:9px;align-items:center}
+.themes button{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;transition:transform .2s}
+.themes button:hover{transform:scale(1.25)}.themes button[aria-pressed="true"]{border-color:var(--tx);transform:scale(1.2)}
+.themes [data-t="neon"]{background:linear-gradient(135deg,#38e0c4,#8b7bff)}.themes [data-t="vscode"]{background:linear-gradient(135deg,#569cd6,#1e1e1e)}
+.themes [data-t="dracula"]{background:linear-gradient(135deg,#bd93f9,#ff79c6)}.themes [data-t="matrix"]{background:linear-gradient(135deg,#00ff66,#020a04)}
+.themes [data-t="light"]{background:linear-gradient(135deg,#fff,#d0d7de)}
+.sk,.job,.proj,.box,.ed,.stat{background:color-mix(in srgb,var(--card) 62%,transparent)}
+/* editor look */
+.term{color:#e6edf3}
+.tab{margin-left:4px;padding:4px 11px;border-radius:6px;cursor:pointer;background:none;border:0;color:var(--dim);font:inherit}
+.tab.on{background:#0a0e18;color:var(--tx)}.tab:hover{color:var(--tx)}
+.term-h .tab:first-of-type{margin-left:10px}
+.ln{display:inline-block;width:2.2em;margin-right:1em;text-align:right;color:#4b5675;user-select:none}
+.cons{padding:16px 20px 4px;font:13.5px/1.7 "Fira Code",monospace;max-height:280px;min-height:150px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+.cons .cm{color:var(--a)}
+.prompt{display:flex;gap:10px;padding:8px 20px 16px;font:13.5px "Fira Code",monospace}
+.prompt span{color:var(--a);white-space:nowrap}
+.prompt input{flex:1;min-width:0;background:none;border:0;color:#e6edf3;font:inherit;outline:none}
+.sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.sugg button{font:12.5px "Fira Code",monospace;color:var(--a);background:color-mix(in srgb,var(--a) 10%,transparent);border:1px solid color-mix(in srgb,var(--a) 35%,transparent);border-radius:8px;padding:6px 12px;cursor:pointer}
+.sugg button:hover{background:var(--a);color:var(--bg)}
+body{padding-bottom:34px}
+#sb{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:16px;align-items:center;padding:0 12px env(safe-area-inset-bottom,0);height:calc(26px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);font:11.5px "Fira Code",monospace;color:var(--dim);overflow:hidden;white-space:nowrap}
+#sb b{background:var(--b);color:var(--bg);padding:3px 10px;font-weight:500;margin-left:-12px;align-self:stretch;display:flex;align-items:center}
+#sb .r{margin-left:auto}
+@media(max-width:640px){#sb .hm{display:none}#sb{gap:12px}}
 </style>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas><div id="glow" aria-hidden="true"></div>
 <div id="bar"></div>
-<nav><div class="wrap"><b>&lt;sachin<i>/</i>&gt;</b><div><a href="#about">About</a><a href="#skills">Skills</a><a href="#exp">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a></div></div></nav>
+<div id="sb" aria-hidden="true"><b>⎇ main</b><span class="hm">✓ 0 errors</span><span id="sbfile">index.html</span><span class="r hm">Java 17</span><span class="hm">UTF-8</span><span id="sbpos">Ln 1, Col 1</span><span id="sbtheme">neon</span></div>
+
+<nav><div class="wrap"><b>&lt;sachin<i>/</i>&gt;</b><div><a href="#about">About</a><a href="#skills">Skills</a><a href="#exp">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#terminal">Terminal</a><a href="#contact">Contact</a></div><span class="themes" role="group" aria-label="Theme"><button data-t="neon" title="Neon" aria-label="Neon theme"></button><button data-t="vscode" title="VS Code" aria-label="VS Code theme"></button><button data-t="dracula" title="Dracula" aria-label="Dracula theme"></button><button data-t="matrix" title="Matrix" aria-label="Matrix theme"></button><button data-t="light" title="Light" aria-label="Light theme"></button></span></div></nav>
 
 <main class="wrap">
   <header class="hero">
@@ -113,7 +164,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
       <div class="typed" aria-live="off">&gt; <b id="role"></b><span class="caret"></span></div>
       <p class="about" style="margin-top:18px">I build reliable Java and Spring Boot services on AWS, from event-driven pipelines to the dashboards that show what production is doing.</p>
       <div class="cta">
-        <a class="btn p" href="mailto:sachindhakad7265@gmail.com">Hire me</a>
+        <a class="btn p" href="mailto:sde.sachinnagar@gmail.com">Hire me</a>
         <a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="#projects">See my work</a>
       </div>
@@ -127,7 +178,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
   </header>
 
   <div class="term rv">
-    <div class="term-h"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><span>Sachin.java</span></div>
+    <div class="term-h"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><button class="tab on" data-f="java" aria-pressed="true">Sachin.java</button><button class="tab" data-f="json" aria-pressed="false">skills.json</button><button class="tab" data-f="md" aria-pressed="false">README.md</button></div>
     <pre id="code" aria-label="Animated code snippet describing Sachin Nagar"></pre>
   </div>
 
@@ -204,10 +255,20 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
     </div>
   </section>
 
+  <section id="terminal" class="rv">
+    <h2>terminal</h2>
+    <div class="term">
+      <div class="term-h"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><span>bash: sachin@portfolio</span></div>
+      <div id="out" class="cons" role="log" aria-live="polite"></div>
+      <label class="prompt"><span>sachin@dev:~$</span><input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Type a command, for example help"></label>
+    </div>
+    <div class="sugg"><button data-c="help">help</button><button data-c="whoami">whoami</button><button data-c="skills">skills</button><button data-c="experience">experience</button><button data-c="projects">projects</button><button data-c="contact">contact</button><button data-c="theme">theme</button></div>
+  </section>
+
   <section id="contact" class="contact rv">
     <h2>let us build something</h2>
     <p class="about" style="margin:0 auto">Indore, Madhya Pradesh, India</p>
-    <div class="links"><a class="btn p" href="mailto:sachindhakad7265@gmail.com">sachindhakad7265@gmail.com</a><a class="btn" href="tel:+919098224586">+91 9098224586</a><a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://www.linkedin.com/in/sachin-nagar-dev/" target="_blank" rel="noopener">LinkedIn</a><a class="btn" href="https://leetcode.com/sachin-nagar-dev/" target="_blank" rel="noopener">LeetCode</a><a class="btn" href="https://www.hackerrank.com/profile/sachindhakad7265" target="_blank" rel="noopener">HackerRank</a><a class="btn" href="https://instagram.com/thesachindhakad" target="_blank" rel="noopener">Instagram</a></div>
+    <div class="links"><a class="btn p" href="mailto:sachindhakad7265@gmail.com">sachindhakad7265@gmail.com</a><a class="btn" href="mailto:sde.sachinnagar@gmail.com">sde.sachinnagar@gmail.com</a><a class="btn" href="tel:+919098224586">+91 9098224586</a><a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://www.linkedin.com/in/sachin-nagar-dev/" target="_blank" rel="noopener">LinkedIn</a><a class="btn" href="https://leetcode.com/sachin-nagar-dev/" target="_blank" rel="noopener">LeetCode</a><a class="btn" href="https://www.hackerrank.com/profile/sachindhakad7265" target="_blank" rel="noopener">HackerRank</a><a class="btn" href="https://instagram.com/thesachindhakad" target="_blank" rel="noopener">Instagram</a></div>
   </section>
   <footer>sachin_nagar.portfolio · last updated 2026</footer>
 </main>
@@ -251,7 +312,7 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
   function render(l,t,partial){ // l line idx, t token idx, partial chars
     var out='';
     for(var i=0;i<=l&&i<L.length;i++){
-      var line=L[i];
+      var line=L[i];out+='<span class="ln">'+(i+1)+'</span>';
       for(var j=0;j<line.length;j++){
         var txt=line[j][1];
         if(i===l){ if(j>t)break; if(j===t)txt=txt.slice(0,partial); }
@@ -261,10 +322,8 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
     }
     pre.innerHTML=out+'<span class="caret"></span>';
   }
-  function run(){
-    var l=0,t=0,c=0;
-    (function step(){
-      if(l>=L.length){setTimeout(function(){run()},4500);return}
+  var gen=0;function run(){var g=++gen,l=0,t=0,c=0;(function step(){if(g!==gen)return;
+      if(l>=L.length){setTimeout(function(){if(g===gen)run()},4500);return}
       var tok=L[l][t];
       c++; render(l,t,c);
       if(c>=tok[1].length){c=0;t++; if(t>=L[l].length){l++;t=0;setTimeout(step,170);return}}
@@ -274,6 +333,20 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
   if(reduce){var o='';L.forEach(function(ln){ln.forEach(function(x){o+=esc(x[1])});o+='\n'});pre.textContent=o}
   else{var started=false;new IntersectionObserver(function(en,ob){if(en[0].isIntersecting&&!started){started=true;run();ob.disconnect()}},{threshold:.2}).observe(pre)}
 
+  // editor tabs
+  function show(lines){pre.innerHTML=lines.map(function(x,i){return '<span class="ln">'+(i+1)+'</span>'+x}).join('\n')+'\n<span class="caret"></span>'}
+  var q=function(x){return '<span class="s">"'+x+'"</span>'},kk=function(x){return '<span class="t">"'+x+'"</span>'};
+  var FILES={
+    json:['{','  '+kk('languages')+': ['+q('Java')+', '+q('Python')+', '+q('JavaScript')+', '+q('SQL')+'],','  '+kk('backend')+': ['+q('Spring Boot')+', '+q('Node.js')+', '+q('Kafka')+', '+q('Microservices')+'],','  '+kk('cloud')+': ['+q('AWS')+', '+q('Docker')+', '+q('Jenkins')+'],','  '+kk('iot')+': ['+q('Node-RED')+', '+q('Grafana')+'],','  '+kk('openToWork')+': <span class="n">true</span>','}'],
+    md:['<span class="k"># Sachin Nagar</span>','<span class="m">&gt; Backend Software Engineer</span>','','<span class="t">-</span> Java, Spring Boot and Microservices','<span class="t">-</span> AWS, Kafka and Docker','<span class="t">-</span> IoT dashboards with Node-RED and Grafana','','<span class="m">Reach me:</span> <span class="s">sachindhakad7265@gmail.com</span>']
+  };
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(b){b.addEventListener('click',function(){
+    tabs.forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
+    var f=b.dataset.f;
+    if(f==='java'){if(reduce)render(L.length-1,L[L.length-1].length-1,999);else run()}
+    else{gen++;show(FILES[f])}})});
+
   // reveal on scroll + counters
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target);
     x.target.querySelectorAll&&x.target.querySelectorAll('[data-n]').forEach(count)}})},{threshold:.12});
@@ -281,14 +354,127 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12
   function count(el){var n=+el.dataset.n,s=el.dataset.s,k=0;if(reduce){el.textContent=n+s;return}
     var iv=setInterval(function(){k+=Math.max(1,n/30);if(k>=n){k=n;clearInterval(iv)}el.textContent=Math.round(k)+s},35)}
 
-  // 3D tilt on project cards
-  document.querySelectorAll('.proj').forEach(function(c){
-    c.addEventListener('mousemove',function(e){if(reduce)return;var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(700px) rotateY('+x*8+'deg) rotateX('+(-y*8)+'deg)'});
-    c.addEventListener('mouseleave',function(){c.style.transform=''})});
+  
 
   // scroll progress
   var bar=document.getElementById('bar');
   addEventListener('scroll',function(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(h>0?scrollY/h:0)+')'},{passive:true});
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(pointer:fine)').matches;
+  var mx=0,my=0;
+
+  /* ---- three.js: scroll-reactive 3D scene ---- */
+  if(window.THREE&&!reduce){
+    var cv=document.getElementById('bg'),R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+    R.setPixelRatio(Math.min(devicePixelRatio,2));
+    var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(60,1,.1,200);cam.position.z=14;
+    var small=innerWidth<700,N=small?450:1200,pos=new Float32Array(N*3);
+    for(var i=0;i<N*3;i+=3){pos[i]=(Math.random()-.5)*60;pos[i+1]=(Math.random()-.5)*40;pos[i+2]=(Math.random()-.5)*50}
+    var pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0x38e0c4,size:.08,transparent:true,opacity:.75}));sc.add(pts);
+    function wire(geo,c,o){return new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:c,wireframe:true,transparent:true,opacity:o}))}
+    var ico=wire(new THREE.IcosahedronGeometry(3.2,1),0x8b7bff,.4),
+        knot=wire(new THREE.TorusKnotGeometry(1.5,.42,120,16),0x38e0c4,.32),
+        oct=wire(new THREE.OctahedronGeometry(1.6),0xff7ab6,.45),
+        ring=wire(new THREE.TorusGeometry(5,.05,8,120),0xffd166,.5);
+    sc.add(ico,knot,oct,ring);
+    window.__recolor=function(){var cs=getComputedStyle(document.documentElement),g=function(v){return new THREE.Color(cs.getPropertyValue(v).trim())};
+      pts.material.color=g('--a');ico.material.color=g('--b');knot.material.color=g('--a');oct.material.color=g('--c');ring.material.color=g('--y')};
+    window.__recolor();
+    function place(){var w=innerWidth/innerHeight<1;ico.position.set(w?3:7,1,-5);knot.position.set(w?-3:-9,-5,-7);oct.position.set(w?-2:-6,5,-4);ring.position.set(w?3:7,1,-5)}
+    function size(){R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();place()}
+    size();addEventListener('resize',size);
+    var sy=0,t=0;
+    (function loop(){requestAnimationFrame(loop);t+=.01;
+      var h=document.documentElement.scrollHeight-innerHeight,target=h>0?scrollY/h:0;sy+=(target-sy)*.06;
+      ico.rotation.x=t*.5;ico.rotation.y=t*.7;knot.rotation.x=t*.6;knot.rotation.y=t*.4;oct.rotation.y=t*.9;oct.rotation.z=t*.5;
+      ring.rotation.x=1.1+Math.sin(t)*.3;ring.rotation.y=t*.5;
+      pts.rotation.y=t*.05+sy*2;pts.rotation.x=sy*.6;
+      cam.position.x+=((Math.sin(sy*6.28)*5+mx*2)-cam.position.x)*.05;
+      cam.position.y+=((-sy*6+my*1.5)-cam.position.y)*.05;
+      cam.lookAt(0,-sy*3,0);R.render(sc,cam)})();
+  }
+
+  /* ---- framer-motion style springs ---- */
+  var glow=document.getElementById('glow');
+  addEventListener('pointermove',function(e){
+    if(e.pointerType!=='mouse')return;
+    mx=e.clientX/innerWidth*2-1;my=-(e.clientY/innerHeight*2-1);
+    glow.style.opacity=1;glow.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)'},{passive:true});
+
+  function tilt(el,max,lift){
+    var rx=0,ry=0,tx=0,ty=0,vx=0,vy=0,run=false,on=false;
+    function loop(){
+      vx=(vx+(tx-rx)*.14)*.74;vy=(vy+(ty-ry)*.14)*.74;rx+=vx;ry+=vy;
+      el.style.transform='perspective(800px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateZ('+(on?lift:0)+'px)';
+      if(on||Math.abs(vx)+Math.abs(vy)+Math.abs(tx-rx)+Math.abs(ty-ry)>.02)requestAnimationFrame(loop);
+      else{run=false;el.style.transform='';el.style.transition=''}}
+    el.addEventListener('pointermove',function(e){
+      if(e.pointerType!=='mouse'||reduce)return;
+      var b=el.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;
+      tx=-y*max*2;ty=x*max*2;on=true;el.style.transition='none';
+      if(!run){run=true;requestAnimationFrame(loop)}});
+    el.addEventListener('pointerleave',function(){tx=0;ty=0;on=false});
+  }
+  document.querySelectorAll('.proj,.sk,.ed,.stat,.box').forEach(function(e){tilt(e,6,18)});
+  document.querySelectorAll('.job').forEach(function(e){tilt(e,3,10)});
+  document.querySelectorAll('.photo').forEach(function(e){tilt(e,12,30)});
+
+  if(fine&&!reduce)document.querySelectorAll('.btn').forEach(function(b){
+    b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();
+      b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.25)+'px,'+((e.clientY-r.top-r.height/2)*.35)+'px)'});
+    b.addEventListener('pointerleave',function(){b.style.transform=''})});
+
+})();
+</script>
+<script>
+(function(){
+  var T=['neon','vscode','dracula','matrix','light'],root=document.documentElement;
+  function setT(t){if(T.indexOf(t)<0)return false;root.dataset.theme=t;
+    try{localStorage.setItem('theme',t)}catch(e){}
+    document.querySelectorAll('.themes button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.t===t)});
+    var sbt=document.getElementById('sbtheme');if(sbt)sbt.textContent=t;
+    if(window.__recolor)window.__recolor();return true}
+  document.querySelectorAll('.themes button').forEach(function(b){b.addEventListener('click',function(){setT(b.dataset.t)})});
+  var saved='neon';try{saved=localStorage.getItem('theme')||'neon'}catch(e){}
+  setT(saved);
+
+  // developer terminal
+  var out=document.getElementById('out'),inp=document.getElementById('cmd'),hist=[],hi=0;
+  function say(t,c){var d=document.createElement('div');if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight}
+  var C={
+    help:function(){return 'Commands: whoami, skills, experience, projects, education, contact, theme [name], clear\nTip: try  sudo hire sachin'},
+    whoami:function(){return 'Sachin Nagar, Backend Software Engineer\nIndore, Madhya Pradesh, India\nSenior Executive at IB Group (IoT dashboards), formerly TCS on the Vanguard platform'},
+    skills:function(){return 'languages : Java, Python, JavaScript, SQL\nbackend   : Spring Boot, Node.js, Kafka, RabbitMQ, Microservices\ncloud     : AWS (Lambda, ECS, DynamoDB, S3), Docker, Jenkins\niot/data  : Node-RED, Grafana, PostgreSQL, MySQL, MongoDB'},
+    experience:function(){return 'Oct 2026 - now   Senior Executive, IB Group\nJun 2025 - Oct 2026  Software Engineer, TCS (Vanguard)\nApr - May 2025   Developer Intern, Stepfinity\nOct 2024 - Apr 2025  Engineer Intern, Tryidol Technologies\nFeb - Mar 2024   Backend Intern, Zappian Media\nJun - Dec 2023   Backend Intern, Avyaan Management'},
+    projects:function(){return '1. Fitness AI Tracking Platform  (Java, Spring Boot, RabbitMQ, Eureka)\n2. Quick Commerce Platform         (MERN, Razorpay)\n3. Inventory Billing Software      (MERN, JWT, barcode scanning)'},
+    education:function(){return 'B.Tech CSE, NRI Institute of Information Science & Technology: 8.56 CGPA (2024)\nClass XII, Govt. Gandhi Higher Secondary School, Pachore: 81.0% (2020)\nClass X, Govt. High School, Kodiya Jargar: 89.0% (2018)'},
+    contact:function(){return 'email    : sachindhakad7265@gmail.com\nemail    : sde.sachinnagar@gmail.com\nlinkedin : linkedin.com/in/sachin-nagar-dev\ngithub   : github.com/TheSachinDhakad\nleetcode : leetcode.com/sachin-nagar-dev'},
+    theme:function(a){if(!a)return 'Themes: '+T.join(', ')+'\nUsage: theme dracula';return setT(a)?'Theme set to '+a:'Unknown theme. Options: '+T.join(', ')}
+  };
+  function exec(v){
+    say('sachin@dev:~$ '+v,'cm');var p=v.trim().split(/\s+/),k=(p[0]||'').toLowerCase();if(!k)return;
+    if(k==='clear'){out.textContent='';return}
+    if(k==='sudo'){say(p.slice(1).join(' ').toLowerCase()==='hire sachin'?'Permission granted. Drafting offer to sachindhakad7265@gmail.com ...':'sudo: nice try');return}
+    if(C[k])say(C[k](p[1]&&p[1].toLowerCase()));else say('command not found: '+k+'. Type help.')}
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){var v=inp.value;if(v.trim()){hist.push(v);hi=hist.length}exec(v);inp.value=''}
+    else if(e.key==='ArrowUp'&&hist.length){hi=Math.max(0,hi-1);inp.value=hist[hi];e.preventDefault()}
+    else if(e.key==='ArrowDown'){hi=Math.min(hist.length,hi+1);inp.value=hist[hi]||'';e.preventDefault()}});
+  document.querySelectorAll('.sugg button').forEach(function(b){b.addEventListener('click',function(){exec(b.dataset.c);inp.focus({preventScroll:true})})});
+  say('Welcome to my portfolio shell. Type help to see what you can run.');
+
+  // status bar
+  var FILE={about:'about.md',skills:'skills.json',exp:'experience.yml',projects:'projects.java',education:'education.md',terminal:'terminal.sh',contact:'contact.html'},ids=Object.keys(FILE);
+  var sbf=document.getElementById('sbfile'),sbp=document.getElementById('sbpos');
+  function upd(){var cur='index.html',col=1;
+    ids.forEach(function(id,i){var el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.4){cur=FILE[id];col=i+2}});
+    sbf.textContent=cur;sbp.textContent='Ln '+(Math.floor(scrollY/24)+1)+', Col '+col}
+  addEventListener('scroll',upd,{passive:true});upd();
 })();
 </script>
 </body>
