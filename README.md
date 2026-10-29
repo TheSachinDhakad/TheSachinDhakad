@@ -1,6 +1,6 @@
 <!-- profile banner -->
 <p align="center">
-  <img src="assets/banner.svg" width="100%" alt="Sachin Nagar — Backend Software Engineer" />
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/banner.svg" width="100%" alt="Sachin Nagar — Backend Software Engineer" />
 </p>
 
 <p align="center">
@@ -14,12 +14,12 @@
 </p>
 
 <p align="center">
-  <img src="assets/stats.svg" width="100%" alt="Career highlights: backend experience, delivery improvements, and DSA problems solved" />
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/stats.svg" width="100%" alt="Career highlights: backend experience, delivery improvements, and DSA problems solved" />
 </p>
 
 <!-- animated code window (assets/terminal.svg) -->
 <p align="center">
-  <img src="assets/terminal.svg" width="760" alt="Animated Sachin.java code window" />
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/terminal.svg" width="760" alt="Sachin.java code window" />
 </p>
 
 ---
@@ -93,7 +93,7 @@ public class Sachin implements Engineer {
 # 🛠️ Tech Stack
 
 <p align="center">
-  <img src="assets/stack.svg" width="100%" alt="Animated technology stack" />
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/stack.svg" width="100%" alt="Technology stack" />
 </p>
 
 ## 🚀 Languages
@@ -145,7 +145,7 @@ public class Sachin implements Engineer {
 # 💼 Experience
 
 <p align="center">
-  <img src="assets/timeline.svg" width="100%" alt="Career timeline from Avyaan to IB Group" />
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/timeline.svg" width="100%" alt="Career timeline from Avyaan to IB Group" />
 </p>
 
 ## 🏢 IB Group
