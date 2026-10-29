@@ -3,10 +3,18 @@
 </p>
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/terminal.svg" width="760" alt="Sachin.java code window" />
+</p>
+
+<p align="center">
   <a href="https://www.linkedin.com/in/sachin-nagar-dev/">LinkedIn</a> ·
   <a href="https://github.com/TheSachinDhakad">GitHub</a> ·
   <a href="https://leetcode.com/sachin-nagar-dev/">LeetCode</a> ·
   <a href="mailto:sachindhakad568@gmail.com">Email</a>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/assets/stats.svg" width="100%" alt="Career highlights and DSA statistics" />
 </p>
 
 ## 🛠️ Skills
