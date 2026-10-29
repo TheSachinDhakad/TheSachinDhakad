@@ -1,6 +1,6 @@
-<!-- animated header -->
+<!-- profile banner -->
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=230&section=header&text=Sachin%20Nagar&fontSize=62&fontAlignY=38&animation=twinkling&desc=Backend%20Software%20Engineer%20%7C%20Java%20%26%20Spring%20Boot%20%7C%20Microservices&descSize=18&descAlignY=60" alt="Sachin Nagar header" />
+  <img src="assets/banner.svg" width="100%" alt="Sachin Nagar — Backend Software Engineer" />
 </p>
 
 <p align="center">
@@ -11,6 +11,10 @@
   <img src="https://komarev.com/ghpvc/?username=TheSachinDhakad&label=Profile%20Views&color=8b7bff&style=for-the-badge" alt="profile views"/>
   <img src="https://img.shields.io/badge/status-open%20to%20work-38e0c4?style=for-the-badge" alt="open to work"/>
   <img src="https://img.shields.io/badge/Indore-India-ff7ab6?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Indore, India"/>
+</p>
+
+<p align="center">
+  <img src="assets/stats.svg" width="100%" alt="Career highlights: backend experience, delivery improvements, and DSA problems solved" />
 </p>
 
 <!-- animated code window (assets/terminal.svg) -->
@@ -88,6 +92,10 @@ public class Sachin implements Engineer {
 
 # 🛠️ Tech Stack
 
+<p align="center">
+  <img src="assets/stack.svg" width="100%" alt="Animated technology stack" />
+</p>
+
 ## 🚀 Languages
 
 <p align="center">
@@ -135,6 +143,10 @@ public class Sachin implements Engineer {
 ---
 
 # 💼 Experience
+
+<p align="center">
+  <img src="assets/timeline.svg" width="100%" alt="Career timeline from Avyaan to IB Group" />
+</p>
 
 ## 🏢 IB Group
 ### Senior Executive
@@ -292,17 +304,16 @@ MERN • JWT Authentication
 # 📊 GitHub Analytics
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=TheSachinDhakad&show_icons=true&theme=tokyonight" width="48%" />
-
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=TheSachinDhakad&show_icons=true&theme=tokyonight" width="48%" alt="GitHub profile statistics" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight" width="48%" alt="GitHub contribution streak" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TheSachinDhakad&layout=compact&theme=tokyonight" width="40%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TheSachinDhakad&layout=compact&theme=tokyonight" width="40%" alt="Most used programming languages" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=TheSachinDhakad&theme=tokyo-night&hide_border=true&area=true" width="100%" alt="activity graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=TheSachinDhakad&theme=tokyo-night&hide_border=true&area=true" width="100%" alt="GitHub contribution activity graph" />
 </p>
 
 ---
