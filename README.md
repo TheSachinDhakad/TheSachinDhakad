@@ -1,31 +1,38 @@
-<h1 align="center">Hi 👋, I'm Sachin Nagar</h1>
-
-<h3 align="center">
-Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusiast
-</h3>
-
+<!-- animated header -->
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=25&duration=3000&color=36BCF7&center=true&vCenter=true&width=700&lines=Java+Backend+Developer;Spring+Boot+Microservices+Engineer;AWS+%7C+Docker+%7C+CI%2FCD;Problem+Solver+%7C+500%2B+DSA+Questions" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=230&section=header&text=Sachin%20Nagar&fontSize=62&fontAlignY=38&animation=twinkling&desc=Backend%20Software%20Engineer%20%7C%20Java%20%26%20Spring%20Boot%20%7C%20Microservices&descSize=18&descAlignY=60" alt="Sachin Nagar header" />
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=TheSachinDhakad&label=Profile%20Views&color=0e75b6&style=flat" alt="profile views"/>
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&duration=2800&pause=700&color=38E0C4&center=true&vCenter=true&width=760&lines=%24+whoami+%E2%86%92+Sachin+Nagar;Java+Backend+Developer;Spring+Boot+Microservices+Engineer;AWS+%7C+Kafka+%7C+Docker+%7C+CI%2FCD;IoT+Dashboards+%7C+Node-RED+%7C+Grafana;Problem+Solver+%7C+500%2B+DSA+Questions" alt="typing animation" />
 </p>
 
 <p align="center">
-  <img 
-    src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" 
-    alt="coding" 
-    width="450"
-  />
+  <img src="https://komarev.com/ghpvc/?username=TheSachinDhakad&label=Profile%20Views&color=8b7bff&style=for-the-badge" alt="profile views"/>
+  <img src="https://img.shields.io/badge/status-open%20to%20work-38e0c4?style=for-the-badge" alt="open to work"/>
+  <img src="https://img.shields.io/badge/Indore-India-ff7ab6?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Indore, India"/>
+</p>
+
+<!-- animated code window (assets/terminal.svg) -->
+<p align="center">
+  <img src="assets/terminal.svg" width="760" alt="Animated Sachin.java code window" />
 </p>
 
 ---
 
 # 💫 About Me
 
-- 💼 Software Engineer at **TCS**
-- 🏦 Currently working for **Vanguard Client**
+```java
+public class Sachin implements Engineer {
+    String role  = "Backend Software Engineer";
+    String now   = "Senior Executive @ IB Group";     // IoT dashboards, SQL pipelines
+    String past  = "TCS, Vanguard client";            // Spring Boot, AWS, Kafka
+    String[] learning = {"System Design", "AWS", "Kubernetes", "Advanced Microservices"};
+}
+```
+
+- 💼 Senior Executive at **IB Group**, building real-time IoT dashboards with **Node-RED & Grafana**
+- 🏦 Previously Software Engineer at **TCS** on the **Vanguard** client
 - 🌱 Learning **System Design, AWS, Kubernetes & Advanced Microservices**
 - 🔥 Passionate about **Backend Engineering & Scalable Systems**
 - 💬 Ask me about:
@@ -36,7 +43,7 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
   - AWS
   - Docker
   - CI/CD
-  - RabbitMQ
+  - RabbitMQ & Kafka
   - OAuth2/JWT
 
 - ⚡ Strong understanding of:
@@ -47,7 +54,7 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
   - Scalable Architecture
 
 - 📫 Reach me at:
-  **sde.sachinnagar@gmail.com**
+  **sachindhakad568@gmail.com** · **sde.sachinnagar@gmail.com**
 
 ---
 
@@ -55,7 +62,7 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 <p align="center">
 
-<a href="https://linkedin.com/in/sachin-nagar-102929231" target="_blank">
+<a href="https://www.linkedin.com/in/sachin-nagar-dev/" target="_blank">
   <img src="https://skillicons.dev/icons?i=linkedin" width="50" height="50"/>
 </a>
 
@@ -84,25 +91,25 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 ## 🚀 Languages
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=java,python,javascript,c,cpp,sql" />
+  <img src="https://skillicons.dev/icons?i=java,python,javascript,c,cpp,sql&theme=dark" />
 </p>
 
 ## ⚙️ Backend Development
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=spring,nodejs,express,django" />
+  <img src="https://skillicons.dev/icons?i=spring,nodejs,express,django,kafka&theme=dark" />
 </p>
 
 ## 🗄️ Databases
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=mysql,mongodb" />
+  <img src="https://skillicons.dev/icons?i=mysql,postgres,mongodb,redis&theme=dark" />
 </p>
 
 ## ☁️ Cloud & DevOps
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=aws,docker,jenkins,git,github,maven" />
+  <img src="https://skillicons.dev/icons?i=aws,docker,jenkins,grafana,git,github,maven&theme=dark" />
 </p>
 
 ## 🔥 Tools & Technologies
@@ -111,11 +118,14 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
 <img src="https://img.shields.io/badge/Microservices-FF6F00?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" />
 <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white" />
 <img src="https://img.shields.io/badge/Eureka-239120?style=for-the-badge" />
 <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens" />
 <img src="https://img.shields.io/badge/OAuth2-4285F4?style=for-the-badge" />
 <img src="https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazondynamodb&logoColor=white" />
+<img src="https://img.shields.io/badge/Node--RED-8F0000?style=for-the-badge&logo=nodered&logoColor=white" />
+<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white" />
 <img src="https://img.shields.io/badge/Splunk-000000?style=for-the-badge&logo=splunk" />
 <img src="https://img.shields.io/badge/Honeycomb-FBBF24?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" />
@@ -126,11 +136,23 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 # 💼 Experience
 
+## 🏢 IB Group
+### Senior Executive
+
+📅 Oct 2026 – Present
+
+- Architected and deployed real-time IoT dashboards with Node-RED and Grafana across live facility units
+- Built Node.js and Python data ingestion pipelines with multi-source telemetry parsing and automated reconciliation
+- Wrote SQL query patterns and aggregation jobs for equipment uptime and daily executive performance reports
+- Configured Grafana alerting and fault-tolerance triggers to notify teams of anomalies quickly
+
+---
+
 ## 🏢 Tata Consultancy Services (TCS)
 ### Software Engineer | Vanguard Client
 
 📍 Indore, Madhya Pradesh  
-📅 June 2025 – Present
+📅 June 2025 – Oct 2026
 
 - Developed scalable microservices using Spring Boot
 - Implemented Saga Design Pattern for distributed transactions
@@ -139,6 +161,8 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 - Automated deployments using Jenkins & Docker
 - Monitored applications using Splunk & Honeycomb
 - Improved deployment efficiency by 30%
+- Implemented OAuth 2.0 and RBAC on transactional endpoints within a 99.9% uptime SLA
+- Cut incident resolution time by 20% and query latency by 35%
 
 ---
 
@@ -179,6 +203,17 @@ Backend Software Engineer | Java & Spring Boot Developer | Microservices Enthusi
 
 ---
 
+## 🏢 Avyaan Management
+### Backend Developer Intern
+
+📍 Bhopal, Madhya Pradesh  
+📅 Jun 2023 – Dec 2023
+
+- Cut audio processing time by 40% with a multilingual Python transcription tool
+- Built HRMS, CRM and Warehouse Management backend modules
+
+---
+
 # 🚀 Featured Projects
 
 ## 🏋️ Fitness Tracking Platform
@@ -216,10 +251,21 @@ MERN • JWT Authentication
 
 ---
 
+# 🎓 Education
+
+| Qualification | Institution | Year | Result |
+|---|---|---|---|
+| B.Tech (CSE) | NRI Institute of Information Science & Technology, Bhopal | 2024 | 8.56 CGPA |
+| Class XII | Govt. Gandhi Higher Secondary School, Pachore | 2020 | 81.0% |
+| Class X | Govt. High School, Kodiya Jargar | 2018 | 89.0% |
+
+---
+
 # 🏆 Achievements
 
 - ✅ Solved **500+ DSA Problems** on LeetCode
 - 🏅 Best Performance Award in TCS ILP Training
+- 🥇 1st place, state-level technical solution design hackathon
 - ☁️ Oracle Cloud Certified
 - 🚀 Built Production-Level Microservices Applications
 
@@ -231,6 +277,15 @@ MERN • JWT Authentication
 - Oracle Cloud Infrastructure Foundations Associate
 - Oracle Data Platform Foundations Associate
 - Oracle Fusion AI Agent Studio Foundations Associate
+- Anthropic Claude Certified
+
+---
+
+# 🧊 My Contributions in 3D
+
+<p align="center">
+  <img src="profile-3d-contrib/profile-night-rainbow.svg" alt="3D GitHub contributions" width="100%" />
+</p>
 
 ---
 
@@ -238,12 +293,16 @@ MERN • JWT Authentication
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=TheSachinDhakad&show_icons=true&theme=tokyonight" width="48%" />
-  
+
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight" width="48%" />
 </p>
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TheSachinDhakad&layout=compact&theme=tokyonight" width="40%" />
+</p>
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=TheSachinDhakad&theme=tokyo-night&hide_border=true&area=true" width="100%" alt="activity graph" />
 </p>
 
 ---
@@ -263,9 +322,13 @@ MERN • JWT Authentication
 # 🤝 Let's Build Something Amazing Together!
 
 <p align="center">
-  <a href="mailto:sde.sachinnagar@gmail.com">
+  <a href="mailto:sachindhakad568@gmail.com">
     <img src="https://img.shields.io/badge/Email-Me-red?style=for-the-badge&logo=gmail&logoColor=white"/>
   </a>
 </p>
 
 <h3 align="center">⭐ From Sachin Nagar ⭐</h3>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" alt="footer" />
+</p>
