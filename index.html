@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -355,6 +355,505 @@ body{padding-bottom:34px}
     var iv=setInterval(function(){k+=Math.max(1,n/30);if(k>=n){k=n;clearInterval(iv)}el.textContent=Math.round(k)+s},35)}
 
   
+
+  // scroll progress
+  var bar=document.getElementById('bar');
+  addEventListener('scroll',function(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(h>0?scrollY/h:0)+')'},{passive:true});
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(pointer:fine)').matches;
+  var mx=0,my=0;
+
+  /* ---- three.js: scroll-reactive 3D scene ---- */
+  if(window.THREE&&!reduce){
+    var cv=document.getElementById('bg'),R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+    R.setPixelRatio(Math.min(devicePixelRatio,2));
+    var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(60,1,.1,200);cam.position.z=14;
+    var small=innerWidth<700,N=small?450:1200,pos=new Float32Array(N*3);
+    for(var i=0;i<N*3;i+=3){pos[i]=(Math.random()-.5)*60;pos[i+1]=(Math.random()-.5)*40;pos[i+2]=(Math.random()-.5)*50}
+    var pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0x38e0c4,size:.08,transparent:true,opacity:.75}));sc.add(pts);
+    function wire(geo,c,o){return new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:c,wireframe:true,transparent:true,opacity:o}))}
+    var ico=wire(new THREE.IcosahedronGeometry(3.2,1),0x8b7bff,.4),
+        knot=wire(new THREE.TorusKnotGeometry(1.5,.42,120,16),0x38e0c4,.32),
+        oct=wire(new THREE.OctahedronGeometry(1.6),0xff7ab6,.45),
+        ring=wire(new THREE.TorusGeometry(5,.05,8,120),0xffd166,.5);
+    sc.add(ico,knot,oct,ring);
+    window.__recolor=function(){var cs=getComputedStyle(document.documentElement),g=function(v){return new THREE.Color(cs.getPropertyValue(v).trim())};
+      pts.material.color=g('--a');ico.material.color=g('--b');knot.material.color=g('--a');oct.material.color=g('--c');ring.material.color=g('--y')};
+    window.__recolor();
+    function place(){var w=innerWidth/innerHeight<1;ico.position.set(w?3:7,1,-5);knot.position.set(w?-3:-9,-5,-7);oct.position.set(w?-2:-6,5,-4);ring.position.set(w?3:7,1,-5)}
+    function size(){R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();place()}
+    size();addEventListener('resize',size);
+    var sy=0,t=0;
+    (function loop(){requestAnimationFrame(loop);t+=.01;
+      var h=document.documentElement.scrollHeight-innerHeight,target=h>0?scrollY/h:0;sy+=(target-sy)*.06;
+      ico.rotation.x=t*.5;ico.rotation.y=t*.7;knot.rotation.x=t*.6;knot.rotation.y=t*.4;oct.rotation.y=t*.9;oct.rotation.z=t*.5;
+      ring.rotation.x=1.1+Math.sin(t)*.3;ring.rotation.y=t*.5;
+      pts.rotation.y=t*.05+sy*2;pts.rotation.x=sy*.6;
+      cam.position.x+=((Math.sin(sy*6.28)*5+mx*2)-cam.position.x)*.05;
+      cam.position.y+=((-sy*6+my*1.5)-cam.position.y)*.05;
+      cam.lookAt(0,-sy*3,0);R.render(sc,cam)})();
+  }
+
+  /* ---- framer-motion style springs ---- */
+  var glow=document.getElementById('glow');
+  addEventListener('pointermove',function(e){
+    if(e.pointerType!=='mouse')return;
+    mx=e.clientX/innerWidth*2-1;my=-(e.clientY/innerHeight*2-1);
+    glow.style.opacity=1;glow.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)'},{passive:true});
+
+  function tilt(el,max,lift){
+    var rx=0,ry=0,tx=0,ty=0,vx=0,vy=0,run=false,on=false;
+    function loop(){
+      vx=(vx+(tx-rx)*.14)*.74;vy=(vy+(ty-ry)*.14)*.74;rx+=vx;ry+=vy;
+      el.style.transform='perspective(800px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateZ('+(on?lift:0)+'px)';
+      if(on||Math.abs(vx)+Math.abs(vy)+Math.abs(tx-rx)+Math.abs(ty-ry)>.02)requestAnimationFrame(loop);
+      else{run=false;el.style.transform='';el.style.transition=''}}
+    el.addEventListener('pointermove',function(e){
+      if(e.pointerType!=='mouse'||reduce)return;
+      var b=el.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;
+      tx=-y*max*2;ty=x*max*2;on=true;el.style.transition='none';
+      if(!run){run=true;requestAnimationFrame(loop)}});
+    el.addEventListener('pointerleave',function(){tx=0;ty=0;on=false});
+  }
+  document.querySelectorAll('.proj,.sk,.ed,.stat,.box').forEach(function(e){tilt(e,6,18)});
+  document.querySelectorAll('.job').forEach(function(e){tilt(e,3,10)});
+  document.querySelectorAll('.photo').forEach(function(e){tilt(e,12,30)});
+
+  if(fine&&!reduce)document.querySelectorAll('.btn').forEach(function(b){
+    b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();
+      b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.25)+'px,'+((e.clientY-r.top-r.height/2)*.35)+'px)'});
+    b.addEventListener('pointerleave',function(){b.style.transform=''})});
+
+})();
+</script>
+<script>
+(function(){
+  var T=['neon','vscode','dracula','matrix','light'],root=document.documentElement;
+  function setT(t){if(T.indexOf(t)<0)return false;root.dataset.theme=t;
+    try{localStorage.setItem('theme',t)}catch(e){}
+    document.querySelectorAll('.themes button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.t===t)});
+    var sbt=document.getElementById('sbtheme');if(sbt)sbt.textContent=t;
+    if(window.__recolor)window.__recolor();return true}
+  document.querySelectorAll('.themes button').forEach(function(b){b.addEventListener('click',function(){setT(b.dataset.t)})});
+  var saved='neon';try{saved=localStorage.getItem('theme')||'neon'}catch(e){}
+  setT(saved);
+
+  // developer terminal
+  var out=document.getElementById('out'),inp=document.getElementById('cmd'),hist=[],hi=0;
+  function say(t,c){var d=document.createElement('div');if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight}
+  var C={
+    help:function(){return 'Commands: whoami, skills, experience, projects, education, contact, theme [name], clear\nTip: try  sudo hire sachin'},
+    whoami:function(){return 'Sachin Nagar, Backend Software Engineer\nIndore, Madhya Pradesh, India\nSenior Executive at IB Group (IoT dashboards), formerly TCS on the Vanguard platform'},
+    skills:function(){return 'languages : Java, Python, JavaScript, SQL\nbackend   : Spring Boot, Node.js, Kafka, RabbitMQ, Microservices\ncloud     : AWS (Lambda, ECS, DynamoDB, S3), Docker, Jenkins\niot/data  : Node-RED, Grafana, PostgreSQL, MySQL, MongoDB'},
+    experience:function(){return 'Oct 2026 - now   Senior Executive, IB Group\nJun 2025 - Oct 2026  Software Engineer, TCS (Vanguard)\nApr - May 2025   Developer Intern, Stepfinity\nOct 2024 - Apr 2025  Engineer Intern, Tryidol Technologies\nFeb - Mar 2024   Backend Intern, Zappian Media\nJun - Dec 2023   Backend Intern, Avyaan Management'},
+    projects:function(){return '1. Fitness AI Tracking Platform  (Java, Spring Boot, RabbitMQ, Eureka)\n2. Quick Commerce Platform         (MERN, Razorpay)\n3. Inventory Billing Software      (MERN, JWT, barcode scanning)'},
+    education:function(){return 'B.Tech CSE, NRI Institute of Information Science & Technology: 8.56 CGPA (2024)\nClass XII, Govt. Gandhi Higher Secondary School, Pachore: 81.0% (2020)\nClass X, Govt. High School, Kodiya Jargar: 89.0% (2018)'},
+    contact:function(){return 'email    : sachindhakad7265@gmail.com\nemail    : sde.sachinnagar@gmail.com\nlinkedin : linkedin.com/in/sachin-nagar-dev\ngithub   : github.com/TheSachinDhakad\nleetcode : leetcode.com/sachin-nagar-dev'},
+    theme:function(a){if(!a)return 'Themes: '+T.join(', ')+'\nUsage: theme dracula';return setT(a)?'Theme set to '+a:'Unknown theme. Options: '+T.join(', ')}
+  };
+  function exec(v){
+    say('sachin@dev:~$ '+v,'cm');var p=v.trim().split(/\s+/),k=(p[0]||'').toLowerCase();if(!k)return;
+    if(k==='clear'){out.textContent='';return}
+    if(k==='sudo'){say(p.slice(1).join(' ').toLowerCase()==='hire sachin'?'Permission granted. Drafting offer to sachindhakad7265@gmail.com ...':'sudo: nice try');return}
+    if(C[k])say(C[k](p[1]&&p[1].toLowerCase()));else say('command not found: '+k+'. Type help.')}
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){var v=inp.value;if(v.trim()){hist.push(v);hi=hist.length}exec(v);inp.value=''}
+    else if(e.key==='ArrowUp'&&hist.length){hi=Math.max(0,hi-1);inp.value=hist[hi];e.preventDefault()}
+    else if(e.key==='ArrowDown'){hi=Math.min(hist.length,hi+1);inp.value=hist[hi]||'';e.preventDefault()}});
+  document.querySelectorAll('.sugg button').forEach(function(b){b.addEventListener('click',function(){exec(b.dataset.c);inp.focus({preventScroll:true})})});
+  say('Welcome to my portfolio shell. Type help to see what you can run.');
+
+  // status bar
+  var FILE={about:'about.md',skills:'skills.json',exp:'experience.yml',projects:'projects.java',education:'education.md',terminal:'terminal.sh',contact:'contact.html'},ids=Object.keys(FILE);
+  var sbf=document.getElementById('sbfile'),sbp=document.getElementById('sbpos');
+  function upd(){var cur='index.html',col=1;
+    ids.forEach(function(id,i){var el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.4){cur=FILE[id];col=i+2}});
+    sbf.textContent=cur;sbp.textContent='Ln '+(Math.floor(scrollY/24)+1)+', Col '+col}
+  addEventListener('scroll',upd,{passive:true});upd();
+})();
+</script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sachin Nagar — Backend Software Engineer</title>
+<meta name="description" content="Portfolio of Sachin Nagar, Backend Software Engineer specializing in Java, Spring Boot, and AWS cloud-native microservices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f1a;--card:#121829;--line:#222b44;--tx:#e8ecf6;--dim:#98a2bd;--a:#38e0c4;--b:#8b7bff;--c:#ff7ab6;--y:#ffd166}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 Sora,system-ui,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(600px 400px at 85% 5%,rgba(139,123,255,.18),transparent),radial-gradient(500px 400px at 5% 40%,rgba(56,224,196,.12),transparent);pointer-events:none}
+a{color:var(--a);text-decoration:none}a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative}
+.code-font,.mono{font-family:"Fira Code",monospace}
+#bar{position:fixed;top:0;left:0;height:3px;width:100%;background:linear-gradient(90deg,var(--a),var(--b),var(--c));transform:scaleX(0);transform-origin:left;z-index:50}
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:rgba(11,15,26,.75);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+nav b{font-family:"Fira Code",monospace;font-weight:600}nav b i{color:var(--a);font-style:normal}
+nav div a{color:var(--dim);margin-left:20px;font-size:14px}nav div a:hover{color:var(--tx);text-decoration:none}
+@media(max-width:640px){nav .wrap{height:auto;flex-direction:column;gap:2px;padding-top:8px;padding-bottom:8px}nav div{display:flex;gap:18px;overflow-x:auto;max-width:100%;white-space:nowrap;scrollbar-width:none}nav div a{margin:0}}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:72px 0 40px}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:40px}.photo-col{order:-1}}
+.badge{display:inline-flex;gap:8px;align-items:center;font:500 13px "Fira Code",monospace;color:var(--a);border:1px solid rgba(56,224,196,.35);border-radius:99px;padding:5px 14px;background:rgba(56,224,196,.07)}
+.badge span{width:8px;height:8px;border-radius:50%;background:var(--a);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(56,224,196,.6)}100%{box-shadow:0 0 0 10px transparent}}
+h1{font-size:clamp(36px,6vw,62px);line-height:1.05;margin:20px 0 12px;font-weight:800;letter-spacing:-.02em}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b),var(--c));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+@keyframes flow{to{background-position:200% 0}}
+.typed{font:500 18px "Fira Code",monospace;color:var(--dim);min-height:30px}
+.typed b{color:var(--y);font-weight:500}.caret{display:inline-block;width:9px;height:19px;background:var(--a);vertical-align:-3px;margin-left:3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--line);color:var(--tx);transition:transform .2s,box-shadow .2s}
+.btn.p{background:linear-gradient(135deg,var(--a),var(--b));color:#06101a;border:0}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(56,224,196,.2);text-decoration:none}
+.photo-col{display:grid;place-items:center}
+.photo{position:relative;width:min(320px,80vw);aspect-ratio:1}
+.photo::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--a),var(--b),var(--c),var(--y),var(--a));animation:spin 8s linear infinite;filter:blur(1px)}
+.photo::after{content:"";position:absolute;inset:-30px;border-radius:50%;background:conic-gradient(from 90deg,transparent,rgba(139,123,255,.35),transparent 60%);filter:blur(26px);animation:spin 8s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo .frame{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:var(--card);border:6px solid var(--bg);z-index:2;display:grid;place-items:center;font:800 80px Sora,sans-serif;color:var(--a)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.orbit{position:absolute;inset:-38px;z-index:3;animation:spin 22s linear infinite}
+.orb{position:absolute;width:0;height:0}
+.orb.o1{left:50%;top:0}.orb.o2{left:100%;top:50%}.orb.o3{left:50%;top:100%}.orb.o4{left:0;top:50%}
+.chip-float{position:absolute;left:0;top:0;translate:-50% -50%;white-space:nowrap;font:500 13px "Fira Code",monospace;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 14px;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:spin 22s linear infinite reverse}
+
+/* TERMINAL */
+.term{background:#0a0e18;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);margin:24px 0 8px}
+.term-h{display:flex;align-items:center;gap:7px;padding:11px 16px;background:var(--card);border-bottom:1px solid var(--line);font:12px "Fira Code",monospace;color:var(--dim)}
+.term-h i{width:11px;height:11px;border-radius:50%;display:block}.term-h span{margin-left:10px}
+pre{margin:0;padding:20px 22px;font:14px/1.8 "Fira Code",monospace;min-height:310px;overflow-x:auto;white-space:pre}
+.k{color:var(--b)}.t{color:var(--a)}.s{color:var(--y)}.n{color:var(--c)}.m{color:#5f6b8a}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0 8px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.stat b{display:block;font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:12.5px;color:var(--dim)}
+
+/* SECTIONS */
+section{padding:56px 0 8px}
+h2{font:600 26px "Fira Code",monospace;margin:0 0 26px}h2::before{content:"// ";color:var(--a)}
+.about{color:var(--dim);max-width:70ch}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.sk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.sk h4{margin:0 0 10px;font:500 13px "Fira Code",monospace;color:var(--b)}
+.sk span{display:inline-block;font-size:12.5px;padding:4px 10px;margin:0 6px 7px 0;border-radius:99px;background:rgba(139,123,255,.1);border:1px solid rgba(139,123,255,.25);transition:.2s}
+.sk span:hover{background:var(--a);color:#06101a;border-color:var(--a);transform:translateY(-2px)}
+.tl{position:relative;padding-left:30px}.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--a),var(--b),var(--c))}
+.job{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;transition:transform .25s,border-color .25s}
+.job:hover{transform:translateX(6px);border-color:var(--a)}
+.job::before{content:"";position:absolute;left:-30px;top:26px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--a)}
+.job h3{margin:0;font-size:17px}.job .when{font:12px "Fira Code",monospace;color:var(--y)}.job .co{font:13px "Fira Code",monospace;color:var(--a);margin:2px 0 10px}
+.job ul,.proj ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px}li{margin-bottom:6px}
+.projs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.proj{background:linear-gradient(160deg,var(--card),#0f1424);border:1px solid var(--line);border-radius:16px;padding:22px;transition:transform .2s ease-out,border-color .25s;transform-style:preserve-3d}
+.proj:hover{border-color:var(--b)}.proj h3{margin:0 0 4px}.proj .st{font:12px "Fira Code",monospace;color:var(--a);margin-bottom:12px}
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.ed{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;transition:border-color .25s,transform .25s}
+.ed:hover{border-color:var(--y);transform:translateY(-3px)}
+.ed .res{min-width:84px;text-align:center;font:800 24px Sora,sans-serif;background:linear-gradient(135deg,var(--y),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ed .res small{display:block;font:500 11px "Fira Code",monospace;color:var(--dim);-webkit-text-fill-color:var(--dim)}
+.ed h3{margin:0;font-size:15.5px}.ed p{margin:2px 0 0;font-size:13.5px;color:var(--dim)}.ed .yr{font:12px "Fira Code",monospace;color:var(--y)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:720px){.two{grid-template-columns:1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}.box p{margin:0 0 10px;color:var(--dim);font-size:14.5px}.box h4{margin:0 0 12px;font:500 13px "Fira Code",monospace;color:var(--y)}
+.contact{text-align:center;padding:72px 0 40px}.contact h2::before{content:""}
+.contact .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px}
+footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;font:12px "Fira Code",monospace;color:#5f6b8a}
+
+/* floating code symbols */
+.sym{position:fixed;font:500 18px "Fira Code",monospace;color:rgba(56,224,196,.13);pointer-events:none;animation:rise linear infinite}
+@keyframes rise{from{transform:translateY(105vh)}to{transform:translateY(-10vh)}}
+.rv{opacity:0;transform:perspective(900px) translateY(44px) rotateX(14deg) scale(.97);transform-origin:50% 100%;transition:opacity .7s,transform .9s cubic-bezier(.2,.9,.25,1.15)}.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.sym{display:none}}
+
+/* 3D / glass layer */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main.wrap{z-index:1}
+#glow{position:fixed;left:0;top:0;width:460px;height:460px;margin:-230px 0 0 -230px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,255,.17),transparent 65%);pointer-events:none;z-index:0;opacity:0;transition:opacity .4s}
+.sk,.job,.proj,.box,.ed,.stat{background:rgba(18,24,41,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.job:hover,.sk:hover,.stat:hover,.box:hover{border-color:rgba(56,224,196,.55)}
+.photo{transform-style:preserve-3d;will-change:transform}
+.btn{will-change:transform}
+h1{text-shadow:0 0 40px rgba(139,123,255,.25)}
+@media(max-width:640px){main.wrap{padding:0 16px}.hero{gap:30px}.cta .btn{flex:1 1 auto;text-align:center}}
+@media(max-width:480px){pre{font-size:12px;padding:16px}.photo{width:68vw}.orbit{inset:-26px}.chip-float{font-size:11px;padding:5px 10px}h2{font-size:21px}.job{padding:16px}.ed{flex-direction:column;text-align:center}.contact .links .btn{width:100%;text-align:center}.typed{font-size:15px}}
+/* developer themes */
+:root[data-theme="vscode"]{--bg:#1e1e1e;--card:#252526;--line:#3c3c3c;--tx:#d4d4d4;--dim:#9da1a6;--a:#4ec9b0;--b:#569cd6;--c:#c586c0;--y:#dcdcaa}
+:root[data-theme="dracula"]{--bg:#282a36;--card:#343746;--line:#44475a;--tx:#f8f8f2;--dim:#a9afc8;--a:#50fa7b;--b:#bd93f9;--c:#ff79c6;--y:#f1fa8c}
+:root[data-theme="matrix"]{--bg:#020a04;--card:#06150a;--line:#0d3a1a;--tx:#c8ffd4;--dim:#6fbf86;--a:#00ff66;--b:#33cc77;--c:#99ffbb;--y:#ccff66}
+:root[data-theme="light"]{--bg:#f6f8fa;--card:#ffffff;--line:#d0d7de;--tx:#1f2328;--dim:#59636e;--a:#0a7f6d;--b:#6f42c1;--c:#cf222e;--y:#9a6700}
+[data-theme="light"] nav{background:rgba(246,248,250,.85)}
+[data-theme="light"] h1{text-shadow:none}
+[data-theme="light"] .btn.p{color:#fff}
+[data-theme="light"] .term{--a:#38e0c4;--b:#8b7bff;--c:#ff7ab6;--y:#ffd166;--tx:#e6edf3;--dim:#98a2bd;--line:#222b44;--card:#121829}
+[data-theme="matrix"] body,[data-theme="matrix"]{font-family:"Fira Code",monospace}
+.themes{display:flex;gap:9px;align-items:center}
+.themes button{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;transition:transform .2s}
+.themes button:hover{transform:scale(1.25)}.themes button[aria-pressed="true"]{border-color:var(--tx);transform:scale(1.2)}
+.themes [data-t="neon"]{background:linear-gradient(135deg,#38e0c4,#8b7bff)}.themes [data-t="vscode"]{background:linear-gradient(135deg,#569cd6,#1e1e1e)}
+.themes [data-t="dracula"]{background:linear-gradient(135deg,#bd93f9,#ff79c6)}.themes [data-t="matrix"]{background:linear-gradient(135deg,#00ff66,#020a04)}
+.themes [data-t="light"]{background:linear-gradient(135deg,#fff,#d0d7de)}
+.sk,.job,.proj,.box,.ed,.stat{background:color-mix(in srgb,var(--card) 62%,transparent)}
+/* editor look */
+.term{color:#e6edf3}
+.tab{margin-left:4px;padding:4px 11px;border-radius:6px;cursor:pointer;background:none;border:0;color:var(--dim);font:inherit}
+.tab.on{background:#0a0e18;color:var(--tx)}.tab:hover{color:var(--tx)}
+.term-h .tab:first-of-type{margin-left:10px}
+.ln{display:inline-block;width:2.2em;margin-right:1em;text-align:right;color:#4b5675;user-select:none}
+.cons{padding:16px 20px 4px;font:13.5px/1.7 "Fira Code",monospace;max-height:280px;min-height:150px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+.cons .cm{color:var(--a)}
+.prompt{display:flex;gap:10px;padding:8px 20px 16px;font:13.5px "Fira Code",monospace}
+.prompt span{color:var(--a);white-space:nowrap}
+.prompt input{flex:1;min-width:0;background:none;border:0;color:#e6edf3;font:inherit;outline:none}
+.sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.sugg button{font:12.5px "Fira Code",monospace;color:var(--a);background:color-mix(in srgb,var(--a) 10%,transparent);border:1px solid color-mix(in srgb,var(--a) 35%,transparent);border-radius:8px;padding:6px 12px;cursor:pointer}
+.sugg button:hover{background:var(--a);color:var(--bg)}
+body{padding-bottom:34px}
+#sb{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:16px;align-items:center;padding:0 12px env(safe-area-inset-bottom,0);height:calc(26px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);font:11.5px "Fira Code",monospace;color:var(--dim);overflow:hidden;white-space:nowrap}
+#sb b{background:var(--b);color:var(--bg);padding:3px 10px;font-weight:500;margin-left:-12px;align-self:stretch;display:flex;align-items:center}
+#sb .r{margin-left:auto}
+@media(max-width:640px){#sb .hm{display:none}#sb{gap:12px}}
+/* hologram hero */
+.photo.holo::before,.photo.holo::after{display:none}
+.holo-cone{position:absolute;left:14%;right:14%;top:42%;bottom:9%;z-index:1;clip-path:polygon(0 0,100% 0,78% 100%,22% 100%);background:linear-gradient(transparent,color-mix(in srgb,var(--a) 32%,transparent));animation:hflick 3.4s steps(1) infinite}
+.holo-base{position:absolute;left:10%;right:10%;bottom:1%;height:15%;z-index:1;border-radius:50%;border:2px solid var(--a);background:radial-gradient(ellipse,color-mix(in srgb,var(--a) 50%,transparent),transparent 70%);box-shadow:0 0 26px var(--a),inset 0 0 20px var(--a)}
+.holo-base::after{content:"";position:absolute;inset:-9px -14px;border-radius:50%;border:2px dashed color-mix(in srgb,var(--a) 70%,transparent);animation:spin 12s linear infinite}
+.holo-fig{position:absolute;left:8%;right:8%;top:0;bottom:17%;z-index:2;animation:hfloat 5s ease-in-out infinite,hflick 3.4s steps(1) infinite}
+.holo-img{position:absolute;inset:0;overflow:hidden;isolation:isolate;border-radius:6px;display:grid;place-items:center;font:800 64px Sora,sans-serif;color:var(--a);background:color-mix(in srgb,var(--a) 8%,transparent);border:1px solid color-mix(in srgb,var(--a) 75%,transparent);box-shadow:0 0 34px color-mix(in srgb,var(--a) 45%,transparent),inset 0 0 30px color-mix(in srgb,var(--a) 30%,transparent);animation:hturn 9s ease-in-out infinite}
+.holo-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25) brightness(1.1);-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse at 50% 45%,#000 55%,transparent 100%)}
+.holo-img::after{content:"";position:absolute;inset:0;background:var(--a);mix-blend-mode:color;opacity:.9}
+.holo-scan{position:absolute;inset:0;z-index:2;background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 4px)}
+.holo-beam{position:absolute;left:0;right:0;height:18%;z-index:3;opacity:.7;background:linear-gradient(transparent,color-mix(in srgb,var(--a) 60%,#fff),transparent);animation:hbeam 3s linear infinite}
+@keyframes hturn{0%,100%{transform:perspective(700px) rotateY(-16deg)}50%{transform:perspective(700px) rotateY(16deg)}}
+@keyframes hfloat{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@keyframes hflick{0%,100%{opacity:1}41%{opacity:.8}42%{opacity:1}77%{opacity:.68}78%{opacity:1}}
+@keyframes hbeam{from{top:-20%}to{top:105%}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas><div id="glow" aria-hidden="true"></div>
+<div id="bar"></div>
+<div id="sb" aria-hidden="true"><b>⎇ main</b><span class="hm">✓ 0 errors</span><span id="sbfile">index.html</span><span class="r hm">Java 17</span><span class="hm">UTF-8</span><span id="sbpos">Ln 1, Col 1</span><span id="sbtheme">neon</span></div>
+
+<nav><div class="wrap"><b>&lt;sachin<i>/</i>&gt;</b><div><a href="#about">About</a><a href="#skills">Skills</a><a href="#exp">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#terminal">Terminal</a><a href="#contact">Contact</a></div><span class="themes" role="group" aria-label="Theme"><button data-t="neon" title="Neon" aria-label="Neon theme"></button><button data-t="vscode" title="VS Code" aria-label="VS Code theme"></button><button data-t="dracula" title="Dracula" aria-label="Dracula theme"></button><button data-t="matrix" title="Matrix" aria-label="Matrix theme"></button><button data-t="light" title="Light" aria-label="Light theme"></button></span></div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="badge"><span></span>open to work</div>
+      <h1>Hi, I am <em>Sachin Nagar</em></h1>
+      <div class="typed" aria-live="off">&gt; <b id="role"></b><span class="caret"></span></div>
+      <p class="about" style="margin-top:18px">I build reliable Java and Spring Boot services on AWS, from event-driven pipelines to the dashboards that show what production is doing.</p>
+      <div class="cta">
+        <a class="btn p" href="mailto:sde.sachinnagar@gmail.com">Hire me</a>
+        <a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="#projects">See my work</a>
+      </div>
+    </div>
+    <div class="photo-col">
+      <div class="photo holo">
+        <div class="holo-cone"></div><div class="holo-base"></div>
+        <div class="holo-fig"><div class="holo-img">SN
+          <img src="https://raw.githubusercontent.com/TheSachinDhakad/TheSachinDhakad/main/my_image-.png" alt="Sachin Nagar" onerror="this.remove()">
+          <i class="holo-scan"></i><i class="holo-beam"></i></div></div>
+        <div class="orbit"><div class="orb o1"><span class="chip-float" style="color:var(--c)">Microservices</span></div><div class="orb o2"><span class="chip-float" style="color:var(--y)">AWS</span></div><div class="orb o3"><span class="chip-float" style="color:var(--a)">Kafka</span></div><div class="orb o4"><span class="chip-float" style="color:var(--b)">Spring Boot</span></div></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="term rv">
+    <div class="term-h"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><button class="tab on" data-f="java" aria-pressed="true">Sachin.java</button><button class="tab" data-f="json" aria-pressed="false">skills.json</button><button class="tab" data-f="md" aria-pressed="false">README.md</button></div>
+    <pre id="code" aria-label="Animated code snippet describing Sachin Nagar"></pre>
+  </div>
+
+  <div class="stats rv">
+    <div class="stat"><b data-n="2" data-s="+">0</b><span>years experience</span></div>
+    <div class="stat"><b data-n="20" data-s="%">0</b><span>faster incident resolution</span></div>
+    <div class="stat"><b data-n="30" data-s="%">0</b><span>shorter release cycle</span></div>
+    <div class="stat"><b data-n="40" data-s="%">0</b><span>faster audio processing</span></div>
+  </div>
+
+  <section id="about" class="rv">
+    <h2>about</h2>
+    <p class="about">Backend Software Engineer with 2+ years of combined experience, including enterprise work at TCS on the Vanguard financial platform. Hands-on with Docker, Jenkins CI/CD, AWS Lambda, DynamoDB, and REST/JSON APIs. Experienced in production log analysis using Splunk and Honeycomb, application support, and distributed-system debugging. Strong OOP and J2EE fundamentals with exposure to XML, JSON, YAML, and modern Java features. Now a Senior Executive at IB Group, building real-time IoT dashboards with Node-RED and Grafana, backed by SQL data pipelines.</p>
+  </section>
+
+  <section id="skills" class="rv">
+    <h2>skills</h2>
+    <div class="skills">
+      <div class="sk"><h4>languages</h4><span>Java</span><span>Python</span><span>JavaScript</span><span>SQL</span></div>
+      <div class="sk"><h4>frameworks</h4><span>Spring Boot</span><span>Hibernate</span><span>J2EE</span><span>Node.js</span><span>Express.js</span><span>Django REST</span></div>
+      <div class="sk"><h4>cloud and devops</h4><span>AWS Lambda</span><span>DynamoDB</span><span>ECS</span><span>EC2</span><span>S3</span><span>RDS</span><span>IAM</span><span>Docker</span><span>Jenkins</span><span>CI/CD</span></div>
+      <div class="sk"><h4>iot and data</h4><span>Node-RED</span><span>Grafana</span><span>IoT Dashboards</span><span>Telemetry Pipelines</span><span>SQL Aggregations</span></div>
+      <div class="sk"><h4>databases</h4><span>MySQL</span><span>MongoDB</span><span>DynamoDB</span><span>Redis</span><span>PostgreSQL</span></div>
+      <div class="sk"><h4>monitoring and quality</h4><span>Splunk</span><span>Honeycomb</span><span>PagerDuty</span><span>SonarQube</span><span>Code Reviews</span></div>
+      <div class="sk"><h4>concepts and tools</h4><span>REST APIs</span><span>Microservices</span><span>Saga Pattern</span><span>Event-Driven</span><span>Confluent</span><span>OAuth 2.0</span><span>Okta</span><span>JWT</span><span>RBAC</span><span>System Design</span><span>Agile/Scrum</span><span>Git</span><span>Postman</span><span>Bruno</span><span>Jira</span><span>RabbitMQ</span><span>Kafka</span></div>
+    </div>
+  </section>
+
+  <section id="exp">
+    <h2>experience</h2>
+    <div class="tl">
+      <div class="job rv"><span class="when">Oct 2026 — Present</span><h3>Senior Executive, IB Group</h3><div class="co">Real-time IoT dashboards · SQL data pipelines · Operations</div>
+        <ul><li>Real-time IoT dashboards: architected and deployed industrial monitoring dashboards with Node-RED and Grafana, capturing operational metrics across live facility units for better visibility and decision support.</li><li>Data processing and backend logic: engineered scalable data ingestion pipelines in Node.js and Python, with multi-source telemetry parsing and automated data reconciliation.</li><li>SQL database management: formulated SQL query patterns and aggregation jobs to monitor equipment uptime, reduce operational bottlenecks, and generate daily executive performance audit reports.</li><li>System reliability and controls: configured automated alerting rules and fault-tolerance triggers in Grafana to notify operational teams of anomalies quickly, reducing critical turnaround delays.</li></ul></div>
+      <div class="job rv"><span class="when">Jun 2025 — Oct 2026</span><h3>Software Developer, Tata Consultancy Services</h3><div class="co">Client: Vanguard (Financial Services) · Indore, M.P.</div>
+        <ul><li>Performed production log analysis and tracing using Splunk and Honeycomb dashboards, reducing incident resolution time by 20%.</li><li>Implemented the Saga design pattern across Spring Boot microservices on JDK 17, ensuring zero-data-loss distributed transactions.</li><li>Built AWS Lambda serverless workflows integrated with S3 and DynamoDB for event-driven financial data pipelines.</li><li>Automated CI/CD pipelines using Jenkins and Docker, reducing release cycle time by 30%.</li><li>Built and supported backend enterprise microservices on AWS for a global financial services client (Vanguard platform), operating within a 99.9% uptime SLA.</li><li>Implemented OAuth 2.0 and role-based access control (RBAC) across transactional endpoints for data confidentiality and regulatory compliance.</li><li>Redesigned data query structures and indexing patterns, cutting latency by 35% during high-volume processing windows.</li><li>Conducted code reviews and applied static analysis best practices in Agile sprints.</li></ul></div>
+      <div class="job rv"><span class="when">Apr — May 2025</span><h3>Software Developer Intern, Stepfinity</h3><div class="co">Client: MMHE · Bhopal, M.P.</div>
+        <ul><li>Delivered REST APIs with JSON/XML payloads, enabling backend integration with OutSystems.</li><li>Integrated Shopify APIs to automate product, order, and inventory workflows.</li><li>Deployed services via Docker and supported the client through post-deployment issues.</li></ul></div>
+      <div class="job rv"><span class="when">Oct 2024 — Apr 2025</span><h3>Software Engineer Intern, Tryidol Technologies</h3><div class="co">Bhopal, M.P.</div>
+        <ul><li>Secured 4 products (Attendance, Inventory, E-commerce, ERP) with JWT/OAuth2 and role-based access control in Spring Boot.</li><li>Built a multi-vendor e-commerce backend with Node.js, Express.js, and MongoDB.</li><li>Developed ERP modules for HR and finance, including payroll logic and employee management.</li><li>Designed MongoDB schemas for high-frequency queries, improving reporting retrieval performance.</li></ul></div>
+      <div class="job rv"><span class="when">Feb — Mar 2024</span><h3>Backend Developer Intern, Zappian Media</h3><div class="co">Bhopal, M.P.</div>
+        <ul><li>Built Node.js REST APIs for the Campaign Labs bulk SMS platform.</li><li>Integrated Redis caching to reduce DB load and improve API response speed.</li><li>Managed data in MySQL and MongoDB, optimising SQL queries for campaign analytics.</li></ul></div>
+      <div class="job rv"><span class="when">Jun — Dec 2023</span><h3>Backend Developer Intern, Avyaan Management</h3><div class="co">Bhopal, M.P.</div>
+        <ul><li>Cut audio processing time by 40% with a multilingual Python transcription tool using batch parallelism.</li><li>Delivered backend modules for HRMS, CRM, and Warehouse Management with Django REST Framework, Node.js, and MongoDB.</li><li>Resolved backend performance issues across multiple projects through root-cause analysis.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="projects" class="rv">
+    <h2>projects</h2>
+    <div class="projs">
+      <div class="proj"><h3>Fitness AI Tracking Platform</h3><div class="st">Java · Spring Boot · MongoDB · RabbitMQ · Eureka · Docker</div>
+        <ul><li>Architected 3 microservices (user, activity, AI-recommendation) decoupled through RabbitMQ events.</li><li>Containerized every service with Docker and health-check endpoints for zero-downtime deployments.</li><li>Drew class and sequence diagrams before implementation.</li></ul>
+        <a href="https://github.com/TheSachinDhakad/FitnessAI" target="_blank" rel="noopener">github.com/TheSachinDhakad/FitnessAI</a></div>
+      <div class="proj"><h3>Quick Commerce Platform</h3><div class="st">React · Node.js · Express.js · MongoDB · Razorpay</div>
+        <ul><li>Built a multi-vendor platform with JWT-secured REST APIs and real-time order tracking.</li><li>Integrated Razorpay with webhook-based order confirmation so transaction state survives network failures.</li><li>Applied OOP principles for maintainable, extensible backend code.</li></ul></div>
+      <div class="proj"><h3>Inventory Billing Software</h3><div class="st">MERN · JWT Authentication</div>
+        <ul><li>Role-based access control for secure, per-role access.</li><li>Real-time inventory tracking across stock movements.</li><li>Barcode scanning system for fast billing.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="education" class="rv">
+    <h2>education</h2>
+    <div class="edu">
+      <div class="ed"><div class="res">8.56<small>CGPA</small></div><div><span class="yr">2020 – 2024</span><h3>B.Tech, Computer Science &amp; Engineering</h3><p>NRI Institute of Information Science &amp; Technology, Bhopal</p></div></div>
+      <div class="ed"><div class="res">81.0%<small>Class XII</small></div><div><span class="yr">2020</span><h3>Higher Secondary (Class XII)</h3><p>Govt. Gandhi Higher Secondary School, Pachore</p></div></div>
+      <div class="ed"><div class="res">89.0%<small>Class X</small></div><div><span class="yr">2018</span><h3>High School (Class X)</h3><p>Govt. High School, Kodiya Jargar</p></div></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>achievements and certifications</h2>
+    <div class="two">
+      <div class="box"><h4>achievements</h4><p>Best Performance, TCS Initial Learning Program (ILP), among batch peers.</p><p>Winner, college-level hackathon: built a scalable solution under time constraints.</p><p>1st place, state-level technical solution design hackathon.</p><p>Solved 500+ DSA problems on LeetCode.</p></div>
+      <div class="box"><h4>certifications</h4><p>Oracle Cloud Infrastructure 2025: AI Foundations, Foundations, Data Platform Foundations (Associate)</p><p>Oracle Fusion AI Agent Studio: Foundations Associate</p><p>Oracle Guided Learning: Project Management Foundations Associate</p><p>LinkedIn Learning: Java, Node.js, AI Foundations: Machine Learning, Programming Foundations: Databases</p><p>Anthropic: Introduction to Claude Cowork, Claude 101, Claude Certified</p></div>
+    </div>
+  </section>
+
+  <section id="terminal" class="rv">
+    <h2>terminal</h2>
+    <div class="term">
+      <div class="term-h"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><span>bash: sachin@portfolio</span></div>
+      <div id="out" class="cons" role="log" aria-live="polite"></div>
+      <label class="prompt"><span>sachin@dev:~$</span><input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Type a command, for example help"></label>
+    </div>
+    <div class="sugg"><button data-c="help">help</button><button data-c="whoami">whoami</button><button data-c="skills">skills</button><button data-c="experience">experience</button><button data-c="projects">projects</button><button data-c="contact">contact</button><button data-c="theme">theme</button></div>
+  </section>
+
+  <section id="contact" class="contact rv">
+    <h2>let us build something</h2>
+    <p class="about" style="margin:0 auto">Indore, Madhya Pradesh, India</p>
+    <div class="links"><a class="btn p" href="mailto:sachindhakad7265@gmail.com">sachindhakad7265@gmail.com</a><a class="btn" href="mailto:sde.sachinnagar@gmail.com">sde.sachinnagar@gmail.com</a><a class="btn" href="tel:+919098224586">+91 9098224586</a><a class="btn" href="https://github.com/TheSachinDhakad" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://www.linkedin.com/in/sachin-nagar-dev/" target="_blank" rel="noopener">LinkedIn</a><a class="btn" href="https://leetcode.com/sachin-nagar-dev/" target="_blank" rel="noopener">LeetCode</a><a class="btn" href="https://www.hackerrank.com/profile/sachindhakad7265" target="_blank" rel="noopener">HackerRank</a><a class="btn" href="https://instagram.com/thesachindhakad" target="_blank" rel="noopener">Instagram</a></div>
+  </section>
+  <footer>sachin_nagar.portfolio · last updated 2026</footer>
+</main>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // floating code symbols
+  if(!reduce){var S=['{ }','</>','()','=>','[]','&&','0x1F','λ','++','::'];
+    for(var i=0;i<14;i++){var e=document.createElement('div');e.className='sym';e.textContent=S[i%S.length];
+      e.style.left=(Math.random()*96)+'vw';e.style.animationDuration=(18+Math.random()*22)+'s';e.style.animationDelay=(-Math.random()*30)+'s';e.style.fontSize=(14+Math.random()*16)+'px';document.body.appendChild(e);}}
+
+  // rotating typed role
+  var roles=['Backend Software Engineer','Java + Spring Boot developer','AWS cloud-native builder','Microservices problem solver'],ri=0,ci=0,del=false,rEl=document.getElementById('role');
+  function tick(){var w=roles[ri];
+    if(reduce){rEl.textContent=w;return}
+    rEl.textContent=w.slice(0,ci);
+    if(!del&&ci<w.length){ci++;setTimeout(tick,70)}
+    else if(!del){del=true;setTimeout(tick,1500)}
+    else if(ci>0){ci--;setTimeout(tick,35)}
+    else{del=false;ri=(ri+1)%roles.length;setTimeout(tick,300)}}
+  tick();
+
+  // code typing in terminal
+  var L=[
+    [['m','// who am I?']],
+    [['k','public class '],['t','Sachin '],['','{']],
+    [['','  '],['k','String '],['','role = '],['s','"Backend Engineer"'],['','; ']],
+    [['','  '],['k','String'],['','[] stack = {'],['s','"Java 17"'],['',', '],['s','"Spring Boot"'],['',', '],['s','"AWS"'],['',', '],['s','"Kafka"'],['','};']],
+    [['','  '],['k','String '],['','now = '],['s','"Senior Executive @ IB Group"'],['',';']],
+    [['','  '],['k','boolean '],['','openToWork = '],['n','true'],['',';']],
+    [['',' ']],
+    [['','  '],['k','void '],['t','ship'],['','() {']],
+    [['','    '],['k','while '],['','('],['n','true'],['',') { '],['t','build'],['','(); '],['t','test'],['','(); '],['t','deploy'],['','(); }']],
+    [['','  }']],
+    [['','}']]
+  ];
+  var pre=document.getElementById('code');
+  function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function render(l,t,partial){ // l line idx, t token idx, partial chars
+    var out='';
+    for(var i=0;i<=l&&i<L.length;i++){
+      var line=L[i];out+='<span class="ln">'+(i+1)+'</span>';
+      for(var j=0;j<line.length;j++){
+        var txt=line[j][1];
+        if(i===l){ if(j>t)break; if(j===t)txt=txt.slice(0,partial); }
+        out+=line[j][0]?'<span class="'+line[j][0]+'">'+esc(txt)+'</span>':esc(txt);
+      }
+      out+='\n';
+    }
+    pre.innerHTML=out+'<span class="caret"></span>';
+  }
+  var gen=0;function run(){var g=++gen,l=0,t=0,c=0;(function step(){if(g!==gen)return;
+      if(l>=L.length){setTimeout(function(){if(g===gen)run()},4500);return}
+      var tok=L[l][t];
+      c++; render(l,t,c);
+      if(c>=tok[1].length){c=0;t++; if(t>=L[l].length){l++;t=0;setTimeout(step,170);return}}
+      setTimeout(step,28);
+    })();
+  }
+  if(reduce){var o='';L.forEach(function(ln){ln.forEach(function(x){o+=esc(x[1])});o+='\n'});pre.textContent=o}
+  else{var started=false;new IntersectionObserver(function(en,ob){if(en[0].isIntersecting&&!started){started=true;run();ob.disconnect()}},{threshold:.2}).observe(pre)}
+
+  // editor tabs
+  function show(lines){pre.innerHTML=lines.map(function(x,i){return '<span class="ln">'+(i+1)+'</span>'+x}).join('\n')+'\n<span class="caret"></span>'}
+  var q=function(x){return '<span class="s">"'+x+'"</span>'},kk=function(x){return '<span class="t">"'+x+'"</span>'};
+  var FILES={
+    json:['{','  '+kk('languages')+': ['+q('Java')+', '+q('Python')+', '+q('JavaScript')+', '+q('SQL')+'],','  '+kk('backend')+': ['+q('Spring Boot')+', '+q('Node.js')+', '+q('Kafka')+', '+q('Microservices')+'],','  '+kk('cloud')+': ['+q('AWS')+', '+q('Docker')+', '+q('Jenkins')+'],','  '+kk('iot')+': ['+q('Node-RED')+', '+q('Grafana')+'],','  '+kk('openToWork')+': <span class="n">true</span>','}'],
+    md:['<span class="k"># Sachin Nagar</span>','<span class="m">&gt; Backend Software Engineer</span>','','<span class="t">-</span> Java, Spring Boot and Microservices','<span class="t">-</span> AWS, Kafka and Docker','<span class="t">-</span> IoT dashboards with Node-RED and Grafana','','<span class="m">Reach me:</span> <span class="s">sachindhakad7265@gmail.com</span>']
+  };
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(b){b.addEventListener('click',function(){
+    tabs.forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
+    var f=b.dataset.f;
+    if(f==='java'){if(reduce)render(L.length-1,L[L.length-1].length-1,999);else run()}
+    else{gen++;show(FILES[f])}})});
+
+  // reveal on scroll + counters
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target);
+    x.target.querySelectorAll&&x.target.querySelectorAll('[data-n]').forEach(count)}})},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(e){io.observe(e)});
+  function count(el){var n=+el.dataset.n,s=el.dataset.s,k=0;if(reduce){el.textContent=n+s;return}
+    var iv=setInterval(function(){k+=Math.max(1,n/30);if(k>=n){k=n;clearInterval(iv)}el.textContent=Math.round(k)+s},35)}
 
   // scroll progress
   var bar=document.getElementById('bar');
