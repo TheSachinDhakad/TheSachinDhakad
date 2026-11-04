@@ -125,4 +125,4 @@
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=TheSachinDhakad&theme=tokyonight&hide_border=true" alt="GitHub streak" />
 </p>
 
-<p align="center"><i>Open to backend roles. Say hello at <a href="mailto:sachindhakad568@gmail.com">sachindhakad568@gmail.com</a></i></p>
+<p align="center"><i>Open to backend roles. Say hello at <a href="mailto:sachindhakad7265@gmail.com">sachindhakad7265@gmail.com</a></i></p>
